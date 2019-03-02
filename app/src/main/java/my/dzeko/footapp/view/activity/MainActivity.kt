@@ -1,7 +1,8 @@
-package my.dzeko.footapp
+package my.dzeko.footapp.view.activity
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import my.dzeko.footapp.R
 
 class MainActivity : AppCompatActivity() {
 
