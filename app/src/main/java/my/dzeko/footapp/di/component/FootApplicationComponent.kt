@@ -4,6 +4,7 @@ import dagger.Component
 import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
 import my.dzeko.footapp.application.FootApplication
+import my.dzeko.footapp.di.module.AppDatabaseModule
 import my.dzeko.footapp.di.module.NewsListFragmentModule
 import my.dzeko.footapp.di.module.SplashScreenFragmentModule
 import javax.inject.Singleton
@@ -13,7 +14,8 @@ import javax.inject.Singleton
     modules = [
         AndroidSupportInjectionModule::class,
         SplashScreenFragmentModule::class,
-        NewsListFragmentModule::class
+        NewsListFragmentModule::class,
+        AppDatabaseModule::class
     ]
 )
 interface FootApplicationComponent : AndroidInjector<FootApplication> {
