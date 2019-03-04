@@ -24,4 +24,7 @@ interface NewsDao {
 
     @Query("Select title, id, summary, date From News Order By date Desc")
     fun getAllNewsSummary(): DataSource.Factory<Int, NewsSummary>
+
+    @Query("Select date From News Order By date Desc Limit 1")
+    fun getLatestNewsDate(): Long?
 }

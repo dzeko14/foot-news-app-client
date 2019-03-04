@@ -19,15 +19,14 @@ class NewsRepository @Inject constructor(
     private val mLocalRepo: LocalNewsRepository,
     private val mNetworkRepo: NetworkNewsRepository
 ) {
-    private val newsListChangesListener = object : NewsListChangesListener(){
+    private val mNewsListChangesListener = object : NewsListChangesListener(){
         private val ioScope = CoroutineScope(Dispatchers.IO)
 
-        override fun onCancelled(p0: DatabaseError) {
-            //TODO
-        }
-
-        override fun onChildChanged(p0: DataSnapshot, p1: String?) {
-            //TODO
+        override fun onChildChanged(dataSnapshot: DataSnapshot, p1: String?) {
+            ioScope.launch {
+                val news = dataSnapshot.getValue(News::class.java)
+                mLocalRepo.save(news)
+            }
         }
 
         override fun onChildAdded(dataSnapshot: DataSnapshot, p1: String?) {
@@ -40,17 +39,17 @@ class NewsRepository @Inject constructor(
 
     suspend fun getNews(): LiveData<PagedList<NewsSummary>> {
         return withContext(Dispatchers.IO) {
-            mNetworkRepo.addNewsListener(newsListChangesListener)
+            val lastAddNewsDate = mLocalRepo.getLastAddedNewsDate() ?: 0
+            mNetworkRepo.addNewsListener(mNewsListChangesListener, lastAddNewsDate)
              mLocalRepo.getNews()
         }
     }
 
     private abstract class NewsListChangesListener : ChildEventListener {
-        override fun onChildMoved(p0: DataSnapshot, p1: String?) {
+        override fun onChildMoved(p0: DataSnapshot, p1: String?) { /*Empty method*/ }
 
-        }
+        override fun onChildRemoved(p0: DataSnapshot) { /*Empty method*/ }
 
-        override fun onChildRemoved(p0: DataSnapshot) {
-        }
+        override fun onCancelled(error: DatabaseError) { /*Empty method*/ }
     }
 }

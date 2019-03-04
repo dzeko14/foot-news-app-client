@@ -11,7 +11,10 @@ class NetworkNewsRepository @Inject constructor(
 ) {
     private val firebaseDBReference = firebaseDatabase.reference.child("news")
 
-    fun addNewsListener(listener: ChildEventListener) {
-        firebaseDBReference.addChildEventListener(listener)
+    fun addNewsListener(listener: ChildEventListener, date: Long) {
+        firebaseDBReference
+            .orderByChild("date")
+            .startAt(date.toDouble() + 1)
+            .addChildEventListener(listener)
     }
 }

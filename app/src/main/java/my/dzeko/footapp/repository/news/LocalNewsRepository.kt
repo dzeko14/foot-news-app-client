@@ -13,13 +13,16 @@ import javax.inject.Singleton
 class LocalNewsRepository @Inject constructor(
     db: AppDatabase
 ) {
-    private val newsDao = db.newsDao()
+    private val mNewsDao = db.newsDao()
 
     fun getNews(): LiveData<PagedList<NewsSummary>> {
-       return LivePagedListBuilder(newsDao.getAllNewsSummary(), 50).build()
+       return LivePagedListBuilder(mNewsDao.getAllNewsSummary(), 50).build()
     }
 
     fun save(news: News?) {
-        news?.let { newsDao.insert(news) }
+        news?.let { mNewsDao.insert(news) }
     }
+
+    fun getLastAddedNewsDate(): Long? = mNewsDao.getLatestNewsDate()
+
 }
