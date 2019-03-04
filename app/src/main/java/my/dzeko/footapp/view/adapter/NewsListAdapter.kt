@@ -11,19 +11,22 @@ import my.dzeko.footapp.R
 import my.dzeko.footapp.extension.formattedTime
 import my.dzeko.footapp.model.entity.NewsSummary
 
-class NewsListAdapter
+class NewsListAdapter(
+    private val mClickListener: (NewsSummary) -> Unit
+)
     : PagedListAdapter<NewsSummary, NewsListAdapter.NewsViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, type: Int): NewsViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val view = inflater.inflate(R.layout.news_list_item, parent, false)
-        return NewsViewHolder(view)
+        return NewsViewHolder(view, mClickListener)
     }
 
     override fun onBindViewHolder(vieHolder: NewsViewHolder, position: Int)
             = vieHolder.update(getItem(position))
 
-    class NewsViewHolder(v: View) : RecyclerView.ViewHolder(v) {
+    class NewsViewHolder(v: View, private val mClickListener: (NewsSummary) -> Unit)
+        : RecyclerView.ViewHolder(v) {
         private val mSummaryTV = v.findViewById<TextView>(R.id.summary_tv)
         private val mTitleTV = v.findViewById<TextView>(R.id.title_tv)
         private val mDateTV = v.findViewById<TextView>(R.id.date_tv)
@@ -33,10 +36,12 @@ class NewsListAdapter
                 mSummaryTV.text = " "
                 mTitleTV.text = " "
                 mDateTV.text = " "
+                itemView.setOnClickListener(null)
             } else {
                 mSummaryTV.text = news.summary
                 mTitleTV.text = news.title
                 mDateTV.text = news.date.formattedTime()
+                itemView.setOnClickListener { mClickListener(news) }
             }
         }
     }

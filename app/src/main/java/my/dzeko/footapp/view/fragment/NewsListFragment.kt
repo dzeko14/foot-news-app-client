@@ -22,7 +22,11 @@ class NewsListFragment : DaggerFragment(), NewsListView {
     @Inject lateinit var mPresenter: NewsListPresenter
 
     private lateinit var mRecyclerView: RecyclerView
-    private val mAdapter = NewsListAdapter()
+    private val mAdapter = NewsListAdapter(::onNewsItemClicked)
+
+    private fun onNewsItemClicked(newsSummary: NewsSummary) {
+        mPresenter.onNewsItemClicked(newsSummary)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
