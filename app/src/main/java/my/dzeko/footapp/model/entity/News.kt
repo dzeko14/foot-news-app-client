@@ -6,13 +6,13 @@ import android.arch.persistence.room.PrimaryKey
 
 @Entity
 data class News(
-    @PrimaryKey val id: Long,
-    val title :String,
-    val summary :String,
-    val date :Long,
-    val content :List<String>,
-    val images: List<String>,
-    val originalUrl :String
+    @PrimaryKey var id: Long = 0,
+    var title :String = "",
+    var summary :String = "",
+    var date :Long = 0,
+    var content :List<String> = emptyList(),
+    var images: List<String> = emptyList(),
+    var originalUrl :String = ""
 ){
     @Ignore var tags :List<Tag>? = null
 }

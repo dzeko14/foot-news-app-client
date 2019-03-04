@@ -5,6 +5,6 @@ import android.arch.persistence.room.PrimaryKey
 
 @Entity
 data class Tag(
-        @PrimaryKey val id :Int,
-        val name :String
+        @PrimaryKey var id :Int = 0,
+        var name :String = ""
 )

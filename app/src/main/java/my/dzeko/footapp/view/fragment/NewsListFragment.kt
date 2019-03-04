@@ -1,10 +1,10 @@
 package my.dzeko.footapp.view.fragment
 
-
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.Observer
 import android.arch.paging.PagedList
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -41,6 +41,7 @@ class NewsListFragment : DaggerFragment(), NewsListView {
         return inflater.inflate(R.layout.fragment_news_list, container, false)
             .also {v ->
                 mRecyclerView = v.findViewById(R.id.recycler_view)
+                mRecyclerView.layoutManager = LinearLayoutManager(context)
                 mRecyclerView.adapter = mAdapter
                 mPresenter.requestNewsList()
         }
