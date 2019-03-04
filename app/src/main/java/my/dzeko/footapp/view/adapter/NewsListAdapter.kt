@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import my.dzeko.footapp.R
+import my.dzeko.footapp.extension.formattedTime
 import my.dzeko.footapp.model.entity.NewsSummary
 
 class NewsListAdapter
@@ -35,7 +36,7 @@ class NewsListAdapter
             } else {
                 mSummaryTV.text = news.summary
                 mTitleTV.text = news.title
-                mDateTV.text = news.date.toString()
+                mDateTV.text = news.date.formattedTime()
             }
         }
     }

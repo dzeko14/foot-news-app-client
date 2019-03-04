@@ -3,6 +3,7 @@ package my.dzeko.footapp.database
 import android.arch.persistence.room.Database
 import android.arch.persistence.room.RoomDatabase
 import android.arch.persistence.room.TypeConverters
+import my.dzeko.footapp.converter.DateConverter
 import my.dzeko.footapp.converter.StringListConverter
 import my.dzeko.footapp.database.dao.NewsDao
 import my.dzeko.footapp.database.dao.NewsTagDao
@@ -23,7 +24,8 @@ import javax.inject.Singleton
     exportSchema = false
 )
 @TypeConverters(value = [
-    StringListConverter::class
+    StringListConverter::class,
+    DateConverter::class
 ])
 abstract class AppDatabase : RoomDatabase() {
     abstract fun newsDao(): NewsDao
