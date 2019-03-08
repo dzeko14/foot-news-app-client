@@ -2,15 +2,11 @@ package my.dzeko.footapp.repository.news
 
 import android.arch.lifecycle.LiveData
 import android.arch.paging.PagedList
-import com.google.firebase.database.ChildEventListener
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import my.dzeko.footapp.model.entity.News
 import my.dzeko.footapp.model.entity.NewsSummary
+import my.dzeko.footapp.model.interactor.NewsListInteractor
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -19,28 +15,11 @@ class NewsRepository @Inject constructor(
     private val mLocalRepo: LocalNewsRepository,
     private val mNetworkRepo: NetworkNewsRepository
 ) {
-    private val mNewsListChangesListener = object : NewsListChangesListener(){
-        private val ioScope = CoroutineScope(Dispatchers.IO)
-
-        override fun onChildChanged(dataSnapshot: DataSnapshot, p1: String?) {
-            ioScope.launch {
-                val news = dataSnapshot.getValue(News::class.java)
-                mLocalRepo.save(news)
-            }
-        }
-
-        override fun onChildAdded(dataSnapshot: DataSnapshot, p1: String?) {
-            ioScope.launch {
-                val news = dataSnapshot.getValue(News::class.java)
-                mLocalRepo.save(news)
-            }
-        }
-    }
-
-    suspend fun getNews(): LiveData<PagedList<NewsSummary>> {
+    suspend fun getNews(newsListChangesListener: NewsListInteractor.NewsListChangesListener)
+            : LiveData<PagedList<NewsSummary>> {
         return withContext(Dispatchers.IO) {
             val lastAddNewsDate = mLocalRepo.getLastAddedNewsDate() ?: 0
-            mNetworkRepo.addNewsListener(mNewsListChangesListener, lastAddNewsDate)
+            mNetworkRepo.addNewsListener(newsListChangesListener, lastAddNewsDate)
              mLocalRepo.getNews()
         }
     }
@@ -51,11 +30,9 @@ class NewsRepository @Inject constructor(
         }
     }
 
-    private abstract class NewsListChangesListener : ChildEventListener {
-        override fun onChildMoved(p0: DataSnapshot, p1: String?) { /*Empty method*/ }
-
-        override fun onChildRemoved(p0: DataSnapshot) { /*Empty method*/ }
-
-        override fun onCancelled(error: DatabaseError) { /*Empty method*/ }
+    fun save(news: News?) {
+        mLocalRepo.save(news)
     }
+
+
 }

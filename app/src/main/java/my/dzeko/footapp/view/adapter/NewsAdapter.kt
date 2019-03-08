@@ -49,9 +49,7 @@ class NewsAdapter (
 
 
     override fun getItemCount(): Int {
-        var count = news.content.size + 2
-        news.tags?.let { tags -> count += tags.size }
-        return count
+        return news.content.size + 2 + news.images.size
     }
 
     override fun getItemViewType(position: Int): Int {
