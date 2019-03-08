@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.NavHostFragment
 import dagger.android.support.DaggerFragment
 import my.dzeko.footapp.R
 import my.dzeko.footapp.model.entity.NewsSummary
@@ -53,5 +54,10 @@ class NewsListFragment : DaggerFragment(), NewsListView {
 
     override fun setNewsList(newsList: LiveData<PagedList<NewsSummary>>) {
         newsList.observe(this, Observer { mAdapter.submitList(it) })
+    }
+
+    override fun navigateToNewsFragment(id: Long) {
+        val action = NewsListFragmentDirections.actionNewsListFragmentToNewsFragment(id)
+        NavHostFragment.findNavController(this).navigate(action)
     }
 }

@@ -15,7 +15,8 @@ import javax.inject.Singleton
         SplashScreenFragmentModule::class,
         NewsListFragmentModule::class,
         AppDatabaseModule::class,
-        FirebaseDatabaseModule::class
+        FirebaseDatabaseModule::class,
+        NewsFragmentModule::class
     ]
 )
 interface FootApplicationComponent : AndroidInjector<FootApplication> {

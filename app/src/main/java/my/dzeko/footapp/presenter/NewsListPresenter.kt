@@ -20,6 +20,6 @@ class NewsListPresenter @Inject constructor(
     }
 
     fun onNewsItemClicked(newsSummary: NewsSummary) {
-
+        view?.navigateToNewsFragment(newsSummary.id)
     }
 }

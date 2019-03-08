@@ -45,6 +45,12 @@ class NewsRepository @Inject constructor(
         }
     }
 
+    suspend fun getNewsById(id: Long): News {
+        return withContext(Dispatchers.IO) {
+             mLocalRepo.getNewsById(id)
+        }
+    }
+
     private abstract class NewsListChangesListener : ChildEventListener {
         override fun onChildMoved(p0: DataSnapshot, p1: String?) { /*Empty method*/ }
 

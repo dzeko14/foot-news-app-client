@@ -24,5 +24,8 @@ class LocalNewsRepository @Inject constructor(
     }
 
     fun getLastAddedNewsDate(): Long? = mNewsDao.getLatestNewsDate()
+    fun getNewsById(id: Long): News {
+        return mNewsDao.getById(id)
+    }
 
 }

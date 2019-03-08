@@ -6,4 +6,5 @@ import my.dzeko.footapp.model.entity.NewsSummary
 
 interface NewsListView {
     fun setNewsList(newsList: LiveData<PagedList<NewsSummary>>)
+    fun navigateToNewsFragment(id: Long)
 }
