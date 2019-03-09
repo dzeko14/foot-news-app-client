@@ -1,6 +1,8 @@
 package my.dzeko.footapp.view.fragment
 
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -8,7 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
-import android.widget.TextView
+import android.widget.Toast
 import androidx.navigation.fragment.navArgs
 import dagger.android.support.DaggerFragment
 
@@ -64,11 +66,16 @@ class NewsFragment : DaggerFragment(), NewsView {
     }
 
     override fun setNews(news: News) {
-        mRecyclerView.adapter = NewsAdapter(news, ::onOriginalUrlClickListener)
+        mRecyclerView.adapter = NewsAdapter(news, ::onOriginalUrlClicked, ::onTagClicked)
     }
 
-    private fun onOriginalUrlClickListener(url: String) {
+    private fun onOriginalUrlClicked(url: String) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        startActivity(intent)
+    }
 
+    private fun onTagClicked(tagId: Int) {
+        Toast.makeText(this.context, "Tag id: $tagId", Toast.LENGTH_SHORT).show()
     }
 
     override fun showLoading() {
