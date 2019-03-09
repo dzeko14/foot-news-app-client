@@ -1,11 +1,14 @@
 package my.dzeko.footapp.view.adapter
 
+import android.net.Uri
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
+import com.bumptech.glide.Glide
 import com.google.android.flexbox.FlexboxLayout
 import my.dzeko.footapp.R
 import my.dzeko.footapp.extension.formattedTime
@@ -44,6 +47,12 @@ class NewsAdapter (
                 ContentVH(view)
             }
 
+            IMAGE -> {
+                val view = layoutInflater
+                    .inflate(R.layout.news_image, parent, false)
+                ImageVH(view)
+            }
+
             else -> throw Exception("Wrong view type in NewsAdapter")
         }
     }
@@ -58,7 +67,7 @@ class NewsAdapter (
            position == 0 -> HEAD
            position == (itemCount - 1) -> BOTTOM
            position % 2 == 1 -> CONTENT
-           else -> CONTENT
+           else -> IMAGE
        }
     }
 
@@ -80,11 +89,19 @@ class NewsAdapter (
         private val contentTV = v.findViewById<TextView>(R.id.content_tv)
 
         override fun update(news: News, position: Int) {
-            if (position == 1) {
-                contentTV.text = news.content[0]
+            contentTV.text = if (mContentPosition.containsKey(position)) {
+                 news.content[mContentPosition[position]!!]
             } else {
-                contentTV.text = news.content[position - 2]
+                mContentPosition[position] = mCurrentContentIndex
+                news.content[mCurrentContentIndex++]
             }
+        }
+
+        companion object {
+            @JvmStatic
+            private val mContentPosition = mutableMapOf<Int, Int>()
+            @JvmStatic
+            private var mCurrentContentIndex = 0
         }
     }
 
@@ -108,6 +125,28 @@ class NewsAdapter (
                     tagsFL.addView(button)
                 }
             }
+        }
+    }
+
+    private class ImageVH(v: View) : BasicNewsVH(v) {
+        private val mNewsImageView = v.findViewById<ImageView>(R.id.news_iv)
+
+        override fun update(news: News, position: Int) {
+            val imageStringUrl = if (mImagesPosition.containsKey(position)) {
+                news.images[mImagesPosition[position]!!]
+            } else {
+                mImagesPosition[position] = mCurrentContentIndex
+                news.images[mCurrentContentIndex++]
+            }
+            val imageUri = Uri.parse(imageStringUrl)
+            Glide.with(mNewsImageView.context).load(imageUri).into(mNewsImageView)
+        }
+
+        companion object {
+            @JvmStatic
+            private val mImagesPosition = mutableMapOf<Int, Int>()
+            @JvmStatic
+            private var mCurrentContentIndex = 0
         }
     }
 }
