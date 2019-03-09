@@ -12,6 +12,7 @@ import my.dzeko.footapp.model.entity.NewsTag
 import my.dzeko.footapp.repository.news.NewsRepository
 import my.dzeko.footapp.repository.newstag.NewsTagRepository
 import my.dzeko.footapp.repository.tag.TagsRepository
+import java.lang.Exception
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -54,6 +55,14 @@ class NewsListInteractor @Inject constructor(
 
     suspend fun getNewsList(): LiveData<PagedList<NewsSummary>> {
         return mNewsRepo.getNews(mNewsListChangesListener)
+    }
+
+    suspend fun getNewsListByTag(tagId: Int?): LiveData<PagedList<NewsSummary>> {
+        tagId?.let {
+            return mNewsRepo.getNewsByTagId(tagId)
+        }
+
+        throw Exception("tagId is null!")
     }
 
 

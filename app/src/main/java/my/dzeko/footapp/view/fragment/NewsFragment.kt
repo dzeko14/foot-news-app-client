@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
 import dagger.android.support.DaggerFragment
 
@@ -75,7 +76,9 @@ class NewsFragment : DaggerFragment(), NewsView {
     }
 
     private fun onTagClicked(tagId: Int) {
-        Toast.makeText(this.context, "Tag id: $tagId", Toast.LENGTH_SHORT).show()
+        val action = NewsFragmentDirections
+            .actionNewsFragmentToNewsListFragment(FIND_BY_TAG_ACTION, tagId)
+        NavHostFragment.findNavController(this).navigate(action)
     }
 
     override fun showLoading() {

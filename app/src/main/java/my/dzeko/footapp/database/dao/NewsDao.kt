@@ -27,4 +27,7 @@ interface NewsDao {
 
     @Query("Select date From News Order By date Desc Limit 1")
     fun getLatestNewsDate(): Long?
+
+    @Query("Select title, T1.id, summary, date From News As T1 Inner Join NewsTag as T2 On T1.id=T2.newsId Where T2.tagId=:tagId Order By date Desc")
+    fun getNewsByTagId(tagId: Int): DataSource.Factory<Int, NewsSummary>
 }

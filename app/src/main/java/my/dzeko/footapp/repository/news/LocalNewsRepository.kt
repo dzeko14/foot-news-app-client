@@ -1,6 +1,7 @@
 package my.dzeko.footapp.repository.news
 
 import android.arch.lifecycle.LiveData
+import android.arch.paging.DataSource
 import android.arch.paging.LivePagedListBuilder
 import android.arch.paging.PagedList
 import my.dzeko.footapp.database.AppDatabase
@@ -16,7 +17,7 @@ class LocalNewsRepository @Inject constructor(
     private val mNewsDao = db.newsDao()
 
     fun getNews(): LiveData<PagedList<NewsSummary>> {
-       return LivePagedListBuilder(mNewsDao.getAllNewsSummary(), 50).build()
+       return LivePagedListBuilder(mNewsDao.getAllNewsSummary(), 20).build()
     }
 
     fun save(news: News?) {
@@ -26,6 +27,10 @@ class LocalNewsRepository @Inject constructor(
     fun getLastAddedNewsDate(): Long? = mNewsDao.getLatestNewsDate()
     fun getNewsById(id: Long): News {
         return mNewsDao.getById(id)
+    }
+
+    fun getNewsByTagId(tagId: Int): LiveData<PagedList<NewsSummary>> {
+        return LivePagedListBuilder(mNewsDao.getNewsByTagId(tagId), 20).build()
     }
 
 }

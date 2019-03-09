@@ -42,6 +42,7 @@ class SplashScreenFragment : DaggerFragment(), SplashScreenView {
     }
 
     override fun navigateToListFragment() {
+        SplashScreenFragmentDirections.actionSplashScreenFragmentToNewsListFragment()
         NavHostFragment.findNavController(this)
             .navigate(R.id.action_splashScreenFragment_to_newsListFragment)
     }

@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.navArgs
 import dagger.android.support.DaggerFragment
 import my.dzeko.footapp.R
 import my.dzeko.footapp.model.entity.NewsSummary
@@ -18,12 +19,19 @@ import my.dzeko.footapp.view.adapter.NewsListAdapter
 import my.dzeko.footapp.view.interfaces.NewsListView
 import javax.inject.Inject
 
+const val FIND_BY_TAG_ACTION = 1
+
 class NewsListFragment : DaggerFragment(), NewsListView {
 
     @Inject lateinit var mPresenter: NewsListPresenter
 
     private lateinit var mRecyclerView: RecyclerView
     private val mAdapter = NewsListAdapter(::onNewsItemClicked)
+
+    private val mArgs: NewsListFragmentArgs by navArgs()
+
+    override val tagId: Int
+        get() = mArgs.tagId
 
     private fun onNewsItemClicked(newsSummary: NewsSummary) {
         mPresenter.onNewsItemClicked(newsSummary)
@@ -48,7 +56,7 @@ class NewsListFragment : DaggerFragment(), NewsListView {
                 mRecyclerView = v.findViewById(R.id.recycler_view)
                 mRecyclerView.layoutManager = LinearLayoutManager(context)
                 mRecyclerView.adapter = mAdapter
-                mPresenter.requestNewsList()
+                mPresenter.requestNewsList(mArgs.actionType)
         }
     }
 

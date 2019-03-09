@@ -34,5 +34,11 @@ class NewsRepository @Inject constructor(
         mLocalRepo.save(news)
     }
 
+    suspend fun getNewsByTagId(tagId: Int): LiveData<PagedList<NewsSummary>> {
+        return withContext(Dispatchers.IO) {
+            mLocalRepo.getNewsByTagId(tagId)
+        }
+    }
+
 
 }
