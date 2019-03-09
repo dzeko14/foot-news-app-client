@@ -10,10 +10,11 @@
                                               app:layout_constraintStart_toStartOf="parent"
                                               app:layout_constraintEnd_toEndOf="parent" android:id="@+id/tags_fl"
                                               app:flexWrap="wrap"
+                                              app:justifyContent="flex_start"
     >
 
     </com.google.android.flexbox.FlexboxLayout>
-    <Button
+    <android.support.design.button.MaterialButton
             android:text="@string/original_source_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -22,5 +23,7 @@
             android:layout_marginLeft="8dp" android:layout_marginStart="8dp"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp" android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            style="@style/OriginalUtlStyleButton"
+    />
 </android.support.constraint.ConstraintLayout>

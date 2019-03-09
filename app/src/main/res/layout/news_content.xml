@@ -4,6 +4,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           tools:text="Content text"
+          android:textSize="16sp"
           android:layout_gravity="center"
           android:id="@+id/content_tv"
           android:layout_margin="8dp"
