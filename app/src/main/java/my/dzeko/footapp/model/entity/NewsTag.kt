@@ -27,5 +27,5 @@ data class NewsTag(
         parentColumns = ["id"],
         childColumns = ["tagId"],
         onDelete = ForeignKey.CASCADE
-    ) val tagId: Int
+    ) val tagId: Long
 )

@@ -9,29 +9,30 @@ import android.view.ViewGroup
 import android.widget.TextView
 import my.dzeko.footapp.R
 import my.dzeko.footapp.extension.formattedTime
+import my.dzeko.footapp.model.entity.News
 import my.dzeko.footapp.model.entity.NewsSummary
 
-class NewsListAdapter(
+open class NewsListAdapter(
     private val mClickListener: (NewsSummary) -> Unit
 )
-    : PagedListAdapter<NewsSummary, NewsListAdapter.NewsViewHolder>(DIFF_CALLBACK) {
+    : PagedListAdapter<NewsSummary, NewsListAdapter.AbstractNewsViewHolder>(DIFF_CALLBACK) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, type: Int): NewsViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, type: Int): AbstractNewsViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val view = inflater.inflate(R.layout.news_list_item, parent, false)
         return NewsViewHolder(view, mClickListener)
     }
 
-    override fun onBindViewHolder(vieHolder: NewsViewHolder, position: Int)
+    override fun onBindViewHolder(vieHolder: AbstractNewsViewHolder, position: Int)
             = vieHolder.update(getItem(position))
 
-    class NewsViewHolder(v: View, private val mClickListener: (NewsSummary) -> Unit)
-        : RecyclerView.ViewHolder(v) {
+    private class NewsViewHolder(v: View, private val mClickListener: (NewsSummary) -> Unit)
+        : AbstractNewsViewHolder(v) {
         private val mSummaryTV = v.findViewById<TextView>(R.id.summary_tv)
         private val mTitleTV = v.findViewById<TextView>(R.id.title_tv)
         private val mDateTV = v.findViewById<TextView>(R.id.date_tv)
 
-        fun update(news: NewsSummary?) {
+        override fun update(news: NewsSummary?) {
             if (news == null) {
                 mSummaryTV.text = " "
                 mTitleTV.text = " "
@@ -44,6 +45,10 @@ class NewsListAdapter(
                 itemView.setOnClickListener { mClickListener(news) }
             }
         }
+    }
+
+    abstract class AbstractNewsViewHolder(v: View) : RecyclerView.ViewHolder(v) {
+        abstract fun update(news: NewsSummary?)
     }
 
     companion object {

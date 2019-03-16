@@ -1,5 +1,6 @@
 package my.dzeko.footapp.view.fragment
 
+
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.Observer
 import android.arch.paging.PagedList
@@ -9,22 +10,31 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
 import dagger.android.support.DaggerFragment
 import my.dzeko.footapp.R
 import my.dzeko.footapp.model.entity.NewsSummary
-import my.dzeko.footapp.presenter.NewsListPresenter
-import my.dzeko.footapp.view.adapter.NewsListAdapter
-import my.dzeko.footapp.view.interfaces.NewsListView
+import my.dzeko.footapp.model.entity.Tag
+import my.dzeko.footapp.presenter.TagedNewsListPresenter
+import my.dzeko.footapp.view.adapter.TagedNewsListAdapter
+import my.dzeko.footapp.view.interfaces.TagedNewsListView
 import javax.inject.Inject
 
-class NewsListFragment : DaggerFragment(), NewsListView {
 
-    @Inject lateinit var mPresenter: NewsListPresenter
+class TagedNewsListFragment : DaggerFragment(), TagedNewsListView {
+
+    @Inject lateinit var mPresenter: TagedNewsListPresenter
 
     private lateinit var mRecyclerView: RecyclerView
-    private val mAdapter = NewsListAdapter(::onNewsItemClicked)
+    private val mAdapter = TagedNewsListAdapter(::onTagClickListener, ::onNewsItemClicked)
+
+    private val mArgs: TagedNewsListFragmentArgs by navArgs()
+
+    private fun onTagClickListener(tag: Tag) {
+        mPresenter.onTagClickListener(tag)
+    }
 
     private fun onNewsItemClicked(newsSummary: NewsSummary) {
         mPresenter.onNewsItemClicked(newsSummary)
@@ -44,21 +54,28 @@ class NewsListFragment : DaggerFragment(), NewsListView {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_news_list, container, false)
-            .also {v ->
-                mRecyclerView = v.findViewById(R.id.recycler_view)
-                mRecyclerView.layoutManager = LinearLayoutManager(context)
-                mRecyclerView.adapter = mAdapter
-                mPresenter.requestNewsList()
-        }
+        return inflater.inflate(R.layout.fragment_taged_news_list, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        mRecyclerView = view.findViewById(R.id.recycler_view)
+        mRecyclerView.layoutManager = LinearLayoutManager(context)
+        mRecyclerView.adapter = mAdapter
+        mPresenter.requestNewsList(mArgs.tagId)
     }
 
     override fun setNewsList(newsList: LiveData<PagedList<NewsSummary>>) {
+
         newsList.observe(this, Observer { mAdapter.submitList(it) })
     }
 
+    override fun setTag(tag: Tag) {
+        mAdapter.tag = tag
+    }
+
     override fun navigateToNewsFragment(id: Long) {
-        val action = NewsListFragmentDirections.actionNewsListFragmentToNewsFragment(id)
+        val action = TagedNewsListFragmentDirections.actionTagedNewsListFragmentToNewsFragment(id)
         NavHostFragment.findNavController(this).navigate(action)
     }
 }

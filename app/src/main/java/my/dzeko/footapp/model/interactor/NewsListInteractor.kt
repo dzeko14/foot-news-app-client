@@ -9,6 +9,7 @@ import kotlinx.coroutines.*
 import my.dzeko.footapp.model.entity.News
 import my.dzeko.footapp.model.entity.NewsSummary
 import my.dzeko.footapp.model.entity.NewsTag
+import my.dzeko.footapp.model.entity.Tag
 import my.dzeko.footapp.repository.news.NewsRepository
 import my.dzeko.footapp.repository.newstag.NewsTagRepository
 import my.dzeko.footapp.repository.tag.TagsRepository
@@ -57,12 +58,24 @@ class NewsListInteractor @Inject constructor(
         return mNewsRepo.getNews(mNewsListChangesListener)
     }
 
-    suspend fun getNewsListByTag(tagId: Int?): LiveData<PagedList<NewsSummary>> {
+    suspend fun getNewsListByTag(tagId: Long?): LiveData<PagedList<NewsSummary>> {
         tagId?.let {
             return mNewsRepo.getNewsByTagId(tagId)
         }
 
         throw Exception("tagId is null!")
+    }
+
+    suspend fun getTag(tagId: Long?): Tag {
+        tagId?.let {
+            return mTagsRepo.getTagById(tagId)
+        }
+
+        throw Exception("tagId is null!")
+    }
+
+    suspend fun updateTag(tag: Tag) {
+        mTagsRepo.updateTag(tag)
     }
 
 

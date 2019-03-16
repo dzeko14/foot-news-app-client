@@ -75,9 +75,9 @@ class NewsFragment : DaggerFragment(), NewsView {
         startActivity(intent)
     }
 
-    private fun onTagClicked(tagId: Int) {
+    private fun onTagClicked(tagId: Long) {
         val action = NewsFragmentDirections
-            .actionNewsFragmentToNewsListFragment(FIND_BY_TAG_ACTION, tagId)
+            .actionNewsFragmentToTagedNewsListFragment(tagId)
         NavHostFragment.findNavController(this).navigate(action)
     }
 

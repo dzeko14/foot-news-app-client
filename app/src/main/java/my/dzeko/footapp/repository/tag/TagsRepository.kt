@@ -19,4 +19,16 @@ class TagsRepository @Inject constructor(
 
         }
     }
+
+    suspend fun getTagById(tagId: Long): Tag {
+        return withContext(Dispatchers.IO) {
+            mTagDao.getById(tagId)
+        }
+    }
+
+    suspend fun updateTag(tag: Tag) {
+        withContext(Dispatchers.IO) {
+            mTagDao.insert(tag)
+        }
+    }
 }

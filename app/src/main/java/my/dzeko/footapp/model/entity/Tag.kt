@@ -5,6 +5,7 @@ import android.arch.persistence.room.PrimaryKey
 
 @Entity
 data class Tag(
-        @PrimaryKey var id :Int = 0,
-        var name :String = ""
+        @PrimaryKey var id :Long = 0,
+        var name :String = "",
+        var isSelected: Boolean = false
 )

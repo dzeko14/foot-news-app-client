@@ -24,7 +24,7 @@ private const val IMAGE = 3
 class NewsAdapter (
     private val news: News,
     private val onOriginalUrlClick: (String) -> Unit,
-    private val onTagClick: (Int) -> Unit
+    private val onTagClick: (Long) -> Unit
 ) : RecyclerView.Adapter<BasicNewsVH>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BasicNewsVH {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -106,7 +106,7 @@ class NewsAdapter (
     }
 
     private class BottomVH(v: View, private val onOriginalUrlClick: (String) -> Unit,
-                           private val onTagClick: (Int) -> Unit)
+                           private val onTagClick: (Long) -> Unit)
         : BasicNewsVH(v) {
         private val tagsFL = v.findViewById<FlexboxLayout>(R.id.tags_fl)
         private val originalButton = v.findViewById<Button>(R.id.original_url_btn)

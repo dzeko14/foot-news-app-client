@@ -13,13 +13,18 @@
     </fragment>
     <fragment android:id="@+id/newsListFragment" android:name="my.dzeko.footapp.view.fragment.NewsListFragment"
               android:label="fragment_news_list" tools:layout="@layout/fragment_news_list">
-        <argument android:name="actionType" app:argType="integer" android:defaultValue="0"/>
-        <argument android:name="tagId" app:argType="integer" android:defaultValue="-1"/>
         <action android:id="@+id/action_newsListFragment_to_newsFragment" app:destination="@id/newsFragment"/>
     </fragment>
     <fragment android:id="@+id/newsFragment" android:name="my.dzeko.footapp.view.fragment.NewsFragment"
               android:label="fragment_news" tools:layout="@layout/fragment_news">
         <argument android:name="newsId" app:argType="long" android:defaultValue="-1L"/>
-        <action android:id="@+id/action_newsFragment_to_newsListFragment" app:destination="@id/newsListFragment"/>
+        <action android:id="@+id/action_newsFragment_to_tagedNewsListFragment"
+                app:destination="@id/tagedNewsListFragment"/>
+    </fragment>
+    <fragment android:id="@+id/tagedNewsListFragment"
+              android:name="my.dzeko.footapp.view.fragment.TagedNewsListFragment"
+              android:label="fragment_taged_news_list" tools:layout="@layout/fragment_taged_news_list">
+        <argument android:name="tagId" app:argType="long"/>
+        <action android:id="@+id/action_tagedNewsListFragment_to_newsFragment" app:destination="@id/newsFragment"/>
     </fragment>
 </navigation>

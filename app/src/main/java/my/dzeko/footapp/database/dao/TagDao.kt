@@ -5,15 +5,15 @@ import my.dzeko.footapp.model.entity.Tag
 
 @Dao
 interface TagDao {
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(tag: Tag)
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(tagList: List<Tag>)
 
     @Delete
     fun delete(tag: Tag)
 
     @Query("Select * From Tag Where id = :id")
-    fun getById(id: Int): Tag
+    fun getById(id: Long): Tag
 }

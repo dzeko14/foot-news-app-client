@@ -29,7 +29,7 @@ class LocalNewsRepository @Inject constructor(
         return mNewsDao.getById(id)
     }
 
-    fun getNewsByTagId(tagId: Int): LiveData<PagedList<NewsSummary>> {
+    fun getNewsByTagId(tagId: Long): LiveData<PagedList<NewsSummary>> {
         return LivePagedListBuilder(mNewsDao.getNewsByTagId(tagId), 20).build()
     }
 
