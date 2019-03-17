@@ -14,6 +14,14 @@
     <fragment android:id="@+id/newsListFragment" android:name="my.dzeko.footapp.view.fragment.NewsListFragment"
               android:label="fragment_news_list" tools:layout="@layout/fragment_news_list">
         <action android:id="@+id/action_newsListFragment_to_newsFragment" app:destination="@id/newsFragment"/>
+        <action android:id="@+id/action_newsListFragment_to_userNewsListFragment"
+                app:destination="@id/userNewsListFragment" app:launchSingleTop="true" app:popUpToInclusive="false"/>
+    </fragment>
+    <fragment android:id="@+id/userNewsListFragment" android:name="my.dzeko.footapp.view.fragment.UserNewsFragment"
+              android:label="fragment_user_news" tools:layout="@layout/fragment_user_news">
+        <action android:id="@+id/action_userNewsListFragment_to_newsFragment" app:destination="@id/newsFragment"/>
+        <action android:id="@+id/action_userNewsListFragment_to_newsListFragment"
+                app:destination="@id/newsListFragment" app:launchSingleTop="true" app:popUpToInclusive="false"/>
     </fragment>
     <fragment android:id="@+id/newsFragment" android:name="my.dzeko.footapp.view.fragment.NewsFragment"
               android:label="fragment_news" tools:layout="@layout/fragment_news">

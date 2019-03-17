@@ -1,0 +1,14 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context="my.dzeko.footapp.view.fragment.UserNewsFragment">
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="User news Fragment"
+    android:textColor="@android:color/holo_blue_bright"/>
+
+</FrameLayout>
