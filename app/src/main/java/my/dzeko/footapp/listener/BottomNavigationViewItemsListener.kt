@@ -4,6 +4,7 @@ import android.support.design.widget.BottomNavigationView
 import android.view.MenuItem
 import androidx.navigation.NavController
 import my.dzeko.footapp.R
+import my.dzeko.footapp.extension.popUpTo
 import java.util.*
 
 class BottomNavigationViewItemsListener(private val navController: NavController)
@@ -23,13 +24,5 @@ class BottomNavigationViewItemsListener(private val navController: NavController
         }
         lastClickedItem = menuItemId
         return true
-    }
-}
-
-fun <T> Deque<T>.popUpTo(item: T) {
-    if (!contains(item)) return
-
-    while (item != peek()) {
-        pop()
     }
 }
