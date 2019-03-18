@@ -7,14 +7,13 @@ import my.dzeko.footapp.R
 import my.dzeko.footapp.extension.popUpTo
 import java.util.*
 
-class BottomNavigationViewItemsListener(private val navController: NavController)
+class BottomNavigationViewItemsClickListener(private val navController: NavController)
     : BottomNavigationView.OnNavigationItemSelectedListener{
-    var lastClickedItem = R.id.newsListFragment
-    private val itemsDeque: Deque<Int> = LinkedList(listOf(lastClickedItem))
+    private val itemsDeque: Deque<Int> = LinkedList(listOf(FIRST_MENU_ITEM_ID))
 
     override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
         val menuItemId = menuItem.itemId
-        if (menuItemId == lastClickedItem) return true
+        if (menuItemId == itemsDeque.peek()) return true
         if (itemsDeque.contains(menuItemId)) {
             navController.popBackStack(menuItemId, false)
             itemsDeque.popUpTo(menuItemId)
@@ -22,7 +21,10 @@ class BottomNavigationViewItemsListener(private val navController: NavController
             itemsDeque.push(menuItemId)
             navController.navigate(menuItemId)
         }
-        lastClickedItem = menuItemId
         return true
+    }
+
+    companion object {
+        const val FIRST_MENU_ITEM_ID = R.id.newsListFragment
     }
 }

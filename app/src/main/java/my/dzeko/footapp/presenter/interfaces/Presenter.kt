@@ -11,11 +11,11 @@ abstract class Presenter<T> {
     var view: T? = null
     private set
 
-    fun subscribe(view: T) {
+    open fun subscribe(view: T) {
         this.view = view
     }
 
-    fun unsubscribe() {
+    open fun unsubscribe() {
         view = null
         job.cancel()
     }

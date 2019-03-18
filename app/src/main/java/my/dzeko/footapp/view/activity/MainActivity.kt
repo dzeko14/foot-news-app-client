@@ -10,7 +10,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import dagger.android.support.DaggerAppCompatActivity
 import my.dzeko.footapp.R
 import my.dzeko.footapp.listener.BottomNavViewVisibilityListener
-import my.dzeko.footapp.listener.BottomNavigationViewItemsListener
+import my.dzeko.footapp.listener.BottomNavigationViewItemsClickListener
 import my.dzeko.footapp.presenter.MainPresenter
 import my.dzeko.footapp.view.interfaces.MainView
 import javax.inject.Inject
@@ -37,10 +37,11 @@ class MainActivity : DaggerAppCompatActivity(), MainView {
         //Set up bottom navigation view
         mBottomNavView = findViewById<BottomNavigationView>(R.id.bottom_nav_view)
             .apply {
-            val listener = BottomNavigationViewItemsListener(mNavController)
-            selectedItemId = listener.lastClickedItem
-            setOnNavigationItemSelectedListener(listener)
+            selectedItemId = BottomNavigationViewItemsClickListener.FIRST_MENU_ITEM_ID
+            setOnNavigationItemSelectedListener(BottomNavigationViewItemsClickListener(mNavController))
         }
+
+        mNavController.addOnDestinationChangedListener(mPresenter.destinationChangedListener)
 
         mNavController.addOnDestinationChangedListener(
             BottomNavViewVisibilityListener(mPresenter::onBottomNavViewVisibility)
@@ -49,6 +50,11 @@ class MainActivity : DaggerAppCompatActivity(), MainView {
 
     override fun onSupportNavigateUp(): Boolean {
         return mNavController.navigateUp() || super.onSupportNavigateUp()
+    }
+
+    override fun onBackPressed() {
+        mPresenter.onBackPressed()
+        super.onBackPressed()
     }
 
     override fun onDestroy() {
@@ -62,5 +68,9 @@ class MainActivity : DaggerAppCompatActivity(), MainView {
 
     override fun showBottomNavView() {
         mBottomNavView.visibility = View.VISIBLE
+    }
+
+    override fun setBottomNaViewItem(menuItemId: Int) {
+        mBottomNavView.selectedItemId = menuItemId
     }
 }
