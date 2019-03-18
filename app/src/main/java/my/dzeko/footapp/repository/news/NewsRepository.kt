@@ -40,5 +40,11 @@ class NewsRepository @Inject constructor(
         }
     }
 
+    suspend fun getUserNews(): LiveData<PagedList<NewsSummary>> {
+        return withContext(Dispatchers.IO) {
+            mLocalRepo.getUserNews()
+        }
+    }
+
 
 }

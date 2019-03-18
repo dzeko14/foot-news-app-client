@@ -30,4 +30,7 @@ interface NewsDao {
 
     @Query("Select title, T1.id, summary, date From News As T1 Inner Join NewsTag as T2 On T1.id=T2.newsId Where T2.tagId=:tagId Order By date Desc")
     fun getNewsByTagId(tagId: Long): DataSource.Factory<Int, NewsSummary>
+
+    @Query("Select Distinct title, T1.id, summary, date From News As T1 Inner Join NewsTag as T2 On T1.id=T2.newsId Inner Join Tag As T3 On T3.id=T2.tagId Where T3.isSelected = 1 Order By date Desc ")
+    fun getUserNews(): DataSource.Factory<Int, NewsSummary>
 }
