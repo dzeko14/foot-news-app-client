@@ -15,6 +15,10 @@ class TagedNewsListAdapter(private val tagClickListener: (Tag) -> Unit,
     : NewsListAdapter(newsItemClickListener) {
 
     var tag: Tag? = null
+        set(value) {
+            field = value
+            notifyItemChanged(0)
+        }
 
     override fun onCreateViewHolder(parent: ViewGroup, type: Int): NewsListAdapter.AbstractNewsViewHolder {
         return when(type) {

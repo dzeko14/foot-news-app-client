@@ -6,8 +6,8 @@ import my.dzeko.footapp.model.entity.NewsSummary
 import my.dzeko.footapp.model.entity.Tag
 
 interface TagedNewsListView {
-    fun setNewsList(newsList: LiveData<PagedList<NewsSummary>>)
-    fun setTag(tag: Tag)
+    fun setNewsListAndTag(newsList: LiveData<PagedList<NewsSummary>>, tag: Tag)
+    //fun setTag(tag: Tag)
     fun navigateToNewsFragment(id: Long)
 
 }

@@ -65,12 +65,8 @@ class TagedNewsListFragment : DaggerFragment(), TagedNewsListView {
         mPresenter.requestNewsList(mArgs.tagId)
     }
 
-    override fun setNewsList(newsList: LiveData<PagedList<NewsSummary>>) {
-
+    override fun setNewsListAndTag(newsList: LiveData<PagedList<NewsSummary>>, tag: Tag) {
         newsList.observe(this, Observer { mAdapter.submitList(it) })
-    }
-
-    override fun setTag(tag: Tag) {
         mAdapter.tag = tag
     }
 

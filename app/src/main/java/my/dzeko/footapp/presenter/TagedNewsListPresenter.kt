@@ -1,6 +1,6 @@
 package my.dzeko.footapp.presenter
 
-import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import my.dzeko.footapp.model.entity.NewsSummary
 import my.dzeko.footapp.model.entity.Tag
@@ -15,13 +15,9 @@ class TagedNewsListPresenter @Inject constructor(
 
     fun requestNewsList(tagId: Long?) {
         uiScope.launch{
-            val newsList = interactor.getNewsListByTag(tagId)
-            view?.setNewsList(newsList)
-        }
-
-        uiScope.launch{
-            val tag = interactor.getTag(tagId)
-            view?.setTag(tag)
+            val tag = async{ interactor.getTag(tagId) }
+            val newsList = async { interactor.getNewsListByTag(tagId) }
+            view?.setNewsListAndTag(newsList.await(), tag.await())
         }
     }
 
