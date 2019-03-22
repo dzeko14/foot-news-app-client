@@ -22,6 +22,12 @@ class MainActivity : DaggerAppCompatActivity(), MainView {
     private lateinit var mBottomNavView: BottomNavigationView
     private lateinit var mNavController: NavController
 
+    private val topLevelDestinationIdSet = setOf(
+        R.id.newsListFragment,
+        R.id.userNewsListFragment,
+        R.id.splashScreenFragment,
+        R.id.searchTagFragment)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -30,8 +36,7 @@ class MainActivity : DaggerAppCompatActivity(), MainView {
         mNavController = findNavController(R.id.main_container)
 
         //Set up navigation bar
-        val appBarConfiguration = AppBarConfiguration(setOf(R.id.newsListFragment,
-            R.id.userNewsListFragment, R.id.splashScreenFragment))
+        val appBarConfiguration = AppBarConfiguration(topLevelDestinationIdSet)
         setupActionBarWithNavController(mNavController, appBarConfiguration)
 
         //Set up bottom navigation view

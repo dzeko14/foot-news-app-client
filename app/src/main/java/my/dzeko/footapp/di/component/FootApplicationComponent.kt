@@ -19,7 +19,8 @@ import javax.inject.Singleton
         NewsFragmentModule::class,
         TagedNewsListFragmentModule::class,
         MainActivityModule::class,
-        UserNewsFragmentModule::class
+        UserNewsFragmentModule::class,
+        SearchTagFragmentModule::class
     ]
 )
 interface FootApplicationComponent : AndroidInjector<FootApplication> {

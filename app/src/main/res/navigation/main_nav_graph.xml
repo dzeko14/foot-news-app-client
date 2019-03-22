@@ -16,12 +16,13 @@
         <action android:id="@+id/action_newsListFragment_to_newsFragment" app:destination="@id/newsFragment"/>
         <action android:id="@+id/action_newsListFragment_to_userNewsListFragment"
                 app:destination="@id/userNewsListFragment" app:launchSingleTop="true" app:popUpToInclusive="false"/>
+        <action android:id="@+id/action_newsListFragment_to_searchTagFragment" app:destination="@id/searchTagFragment"/>
     </fragment>
     <fragment android:id="@+id/userNewsListFragment" android:name="my.dzeko.footapp.view.fragment.UserNewsFragment"
               android:label="fragment_user_news" tools:layout="@layout/fragment_user_news">
         <action android:id="@+id/action_userNewsListFragment_to_newsFragment" app:destination="@id/newsFragment"/>
-        <action android:id="@+id/action_userNewsListFragment_to_newsListFragment"
-                app:destination="@id/newsListFragment" app:launchSingleTop="true" app:popUpToInclusive="false"/>
+        <action android:id="@+id/action_userNewsListFragment_to_searchTagFragment"
+                app:destination="@id/searchTagFragment"/>
     </fragment>
     <fragment android:id="@+id/newsFragment" android:name="my.dzeko.footapp.view.fragment.NewsFragment"
               android:label="fragment_news" tools:layout="@layout/fragment_news">
@@ -34,5 +35,14 @@
               android:label="fragment_taged_news_list" tools:layout="@layout/fragment_taged_news_list">
         <argument android:name="tagId" app:argType="long"/>
         <action android:id="@+id/action_tagedNewsListFragment_to_newsFragment" app:destination="@id/newsFragment"/>
+    </fragment>
+
+    <fragment android:id="@+id/searchTagFragment"
+              android:name="my.dzeko.footapp.view.fragment.SearchTagFragment"
+              android:label="fragment_search_tag" tools:layout="@layout/fragment_search_tag">
+        <action android:id="@+id/action_searchTagFragment_to_userNewsListFragment"
+                app:destination="@id/userNewsListFragment"/>
+        <action android:id="@+id/action_searchTagFragment_to_tagedNewsListFragment"
+                app:destination="@id/tagedNewsListFragment"/>
     </fragment>
 </navigation>

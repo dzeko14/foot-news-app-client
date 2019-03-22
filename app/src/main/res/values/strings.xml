@@ -6,6 +6,7 @@
     <string name="original_source_text">The original article tou may read by clicking here</string>
     <string name="all_news">All news</string>
     <string name="user_news">User news</string>
+    <string name="search">Search</string>
     <string-array name="tag_button_string">
         <item>Subscribe</item>
         <item>Unsubscribe</item>

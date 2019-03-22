@@ -7,4 +7,8 @@
     <item android:id="@+id/userNewsListFragment"
           android:title="@string/user_news"
           android:icon="@drawable/ic_user_news"/>
+
+    <item android:id="@+id/searchTagFragment"
+          android:title="@string/search"
+          android:icon="@drawable/ic_search"/>
 </menu>

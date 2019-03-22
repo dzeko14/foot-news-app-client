@@ -17,6 +17,8 @@ class BottomNavViewVisibilityListener(
 
             R.id.userNewsListFragment -> showBottomNavView(true)
 
+            R.id.searchTagFragment -> showBottomNavView(true)
+
             else -> showBottomNavView(false)
         }
     }
