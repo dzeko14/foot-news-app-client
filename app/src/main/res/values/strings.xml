@@ -8,6 +8,7 @@
     <string name="news">News</string>
     <string name="taged_news_list">News List</string>
     <string name="search_tag">Search tag</string>
+    <string name="tag_query_hint">Enter the beginning of a tag name</string>
     <string-array name="tag_button_string">
         <item>Subscribe</item>
         <item>Unsubscribe</item>
