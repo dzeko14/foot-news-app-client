@@ -41,7 +41,7 @@ open class NewsListAdapter(
             } else {
                 mSummaryTV.text = news.summary
                 mTitleTV.text = news.title
-                mDateTV.text = news.date.formattedTime()
+                mDateTV.text = news.date.formattedTime(itemView.resources)
                 itemView.setOnClickListener { mClickListener(news) }
             }
         }

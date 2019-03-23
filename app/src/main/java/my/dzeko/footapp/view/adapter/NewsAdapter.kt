@@ -81,7 +81,7 @@ class NewsAdapter (
 
         override fun update(news: News, position: Int) {
             titleTV.text = news.title
-            dateTV.text = Date(news.date).formattedTime()
+            dateTV.text = Date(news.date).formattedTime(itemView.resources)
         }
     }
 

@@ -12,4 +12,17 @@
         <item>Subscribe</item>
         <item>Unsubscribe</item>
     </string-array>
+
+    <plurals name="minutes">
+        <item quantity="zero">just now</item>
+        <item quantity="one">a minute ago</item>
+        <item quantity="few">%1$d minutes ago</item>
+        <item quantity="many">%1$d minutes ago</item>
+    </plurals>
+
+    <plurals name="hours">
+        <item quantity="one">an hour ago</item>
+        <item quantity="few">%1$d hours ago</item>
+        <item quantity="many">%1$d hours ago</item>
+    </plurals>
 </resources>
