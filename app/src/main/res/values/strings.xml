@@ -1,12 +1,13 @@
 <resources>
     <string name="app_name">Foot App</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="original_source_text">The original article tou may read by clicking here</string>
     <string name="all_news">All news</string>
     <string name="user_news">User news</string>
     <string name="search">Search</string>
+    <string name="news">News</string>
+    <string name="taged_news_list">News List</string>
+    <string name="search_tag">Search tag</string>
     <string-array name="tag_button_string">
         <item>Subscribe</item>
         <item>Unsubscribe</item>
