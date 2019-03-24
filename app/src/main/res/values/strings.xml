@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Foot App</string>
 
-    <string name="original_source_text">The original article tou may read by clicking here</string>
+    <string name="original_source_text">The original you may read here</string>
     <string name="all_news">All news</string>
     <string name="user_news">User news</string>
     <string name="search">Search</string>
@@ -9,6 +9,7 @@
     <string name="taged_news_list">News List</string>
     <string name="search_tag">Search tag</string>
     <string name="tag_query_hint">Enter the beginning of a tag name</string>
+    <string name="tags">Tags</string>
     <string-array name="tag_button_string">
         <item>Subscribe</item>
         <item>Unsubscribe</item>

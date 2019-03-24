@@ -4,26 +4,65 @@
                                              xmlns:tools="http://schemas.android.com/tools"
                                              android:layout_width="match_parent"
                                              android:layout_height="wrap_content">
+    <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0.5dp" app:srcCompat="@android:color/darker_gray"
+            android:id="@+id/imageView4"
+            app:layout_constraintTop_toBottomOf="@+id/tags_fl" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="@dimen/tags_line_border" android:layout_marginStart="@dimen/tags_line_border"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="@dimen/tags_line_border" android:layout_marginRight="@dimen/tags_line_border"
+    />
+    <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0.5dp" app:srcCompat="@android:color/darker_gray"
+            android:id="@+id/imageView3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView"
+            app:layout_constraintTop_toTopOf="@+id/textView"
+            app:layout_constraintBottom_toBottomOf="@+id/textView"
+            android:layout_marginEnd="@dimen/tags_line_border" android:layout_marginRight="@dimen/tags_line_border"/>
     <com.google.android.flexbox.FlexboxLayout android:layout_width="0dp"
                                               android:layout_height="wrap_content"
-                                              app:layout_constraintTop_toTopOf="parent"
                                               app:layout_constraintStart_toStartOf="parent"
                                               app:layout_constraintEnd_toEndOf="parent" android:id="@+id/tags_fl"
                                               app:flexWrap="wrap"
                                               app:justifyContent="flex_start"
+                                              app:layout_constraintTop_toBottomOf="@+id/textView"
     >
 
     </com.google.android.flexbox.FlexboxLayout>
+
+    <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0.5dp" app:srcCompat="@android:color/darker_gray"
+            android:id="@+id/imageView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/textView"
+            app:layout_constraintTop_toTopOf="@+id/textView" app:layout_constraintBottom_toBottomOf="@+id/textView"
+            android:layout_marginLeft="@dimen/tags_line_border" android:layout_marginStart="@dimen/tags_line_border"/>
+
+
     <android.support.design.button.MaterialButton
             android:text="@string/original_source_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/original_url_btn" android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/tags_fl" app:layout_constraintStart_toStartOf="parent"
+            android:id="@+id/original_url_btn"
+            app:layout_constraintStart_toStartOf="parent"
             android:layout_marginLeft="8dp" android:layout_marginStart="8dp"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp" android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             style="@style/OriginalUrlStyleButton"
-    />
+            android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/imageView4"/>
+    <TextView
+            android:text="@string/tags"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView"
+            app:layout_constraintStart_toStartOf="@+id/original_url_btn"
+            app:layout_constraintEnd_toEndOf="@+id/original_url_btn" android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp" app:layout_constraintHorizontal_bias="0.22" tools:text="Tags"
+            android:textSize="16sp" android:fontFamily="sans-serif-medium" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toTopOf="parent"/>
 </android.support.constraint.ConstraintLayout>
