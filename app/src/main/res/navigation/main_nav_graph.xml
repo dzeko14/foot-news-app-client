@@ -32,7 +32,7 @@
                 app:destination="@id/tagedNewsListFragment"/>
     </fragment>
     <fragment android:id="@+id/tagedNewsListFragment"
-              android:label="@string/taged_news_list" android:name="my.dzeko.footapp.view.fragment.TagedNewsListFragment"
+              android:label="@string/taged_news_list" android:name="my.dzeko.footapp.view.fragment.TaggedNewsListFragment"
               tools:layout="@layout/fragment_taged_news_list">
         <argument android:name="tagId" app:argType="long"/>
         <action android:id="@+id/action_tagedNewsListFragment_to_newsFragment" app:destination="@id/newsFragment"/>

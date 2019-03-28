@@ -5,9 +5,11 @@ import android.arch.paging.PagedList
 import my.dzeko.footapp.model.entity.NewsSummary
 import my.dzeko.footapp.model.entity.Tag
 
-interface TagedNewsListView {
+interface TaggedNewsListView {
     fun setNewsListAndTag(newsList: LiveData<PagedList<NewsSummary>>, tag: Tag)
-    //fun setTag(tag: Tag)
     fun navigateToNewsFragment(id: Long)
-
+    fun setSubscribeButtonText(text: CharSequence)
+    val subscribeButtonTextArray: Array<CharSequence>?
+    fun showTitle()
+    fun hideTitle()
 }

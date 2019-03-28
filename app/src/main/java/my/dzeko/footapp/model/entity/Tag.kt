@@ -8,4 +8,8 @@ data class Tag(
         @PrimaryKey var id :Long = 0,
         var name :String = "",
         var isSelected: Boolean = false
-)
+) {
+        fun switchSelectedState(){
+                isSelected = !isSelected
+        }
+}
