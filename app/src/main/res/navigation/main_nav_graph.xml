@@ -9,8 +9,9 @@
               tools:layout="@layout/fragment_splash_screen">
         <action android:id="@+id/action_splashScreenFragment_to_newsListFragment"
                 app:destination="@id/newsListFragment"
-                app:popUpTo="@id/splashScreenFragment"
-                app:popUpToInclusive="true"/>
+                app:popUpTo="@+id/splashScreenFragment"
+                app:popUpToInclusive="true"
+                app:enterAnim="@anim/nav_default_enter_anim"/>
     </fragment>
     <fragment android:id="@+id/newsListFragment" android:name="my.dzeko.footapp.view.fragment.NewsListFragment"
                android:label="@string/all_news" tools:layout="@layout/fragment_news_list">

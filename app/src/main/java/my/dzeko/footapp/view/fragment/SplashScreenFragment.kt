@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import androidx.navigation.fragment.NavHostFragment
 import dagger.android.support.DaggerFragment
 import my.dzeko.footapp.R
@@ -42,8 +44,26 @@ class SplashScreenFragment : DaggerFragment(), SplashScreenView {
     }
 
     override fun navigateToListFragment() {
-        SplashScreenFragmentDirections.actionSplashScreenFragmentToNewsListFragment()
-        NavHostFragment.findNavController(this)
-            .navigate(R.id.action_splashScreenFragment_to_newsListFragment)
+        val animation = AnimationUtils.loadAnimation(this.context, R.anim.enter_scale_animation)
+        animation.setAnimationListener(object : OnAnimationEndListener() {
+            override fun onAnimationEnd(animation: Animation?) {
+                SplashScreenFragmentDirections.actionSplashScreenFragmentToNewsListFragment()
+                NavHostFragment.findNavController(this@SplashScreenFragment)
+                    .navigate(R.id.action_splashScreenFragment_to_newsListFragment)
+            }
+        })
+        view?.startAnimation(animation)
+
+    }
+
+    private abstract class OnAnimationEndListener : Animation.AnimationListener {
+
+        override fun onAnimationRepeat(animation: Animation?) {
+            //
+        }
+
+        override fun onAnimationStart(animation: Animation?) {
+            //
+        }
     }
 }

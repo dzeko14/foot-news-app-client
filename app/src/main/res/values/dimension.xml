@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="tags_line_border">8dp</dimen>
+
+    <dimen name="scale_to_value">4</dimen>
 </resources>
