@@ -5,4 +5,4 @@
         android:layout_height="wrap_content"
         tools:text="test"
         style="@style/TagButtonStyle"
-/>
+android:layout_marginLeft="8dp" android:layout_marginRight="8dp"/>

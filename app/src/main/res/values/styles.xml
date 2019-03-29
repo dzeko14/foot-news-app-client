@@ -23,18 +23,20 @@
         <item name="colorControlNormal">@android:color/white</item>
     </style>
     
-    <style name="TagButtonStyle" parent="Widget.MaterialComponents.Button.TextButton">
-        <item name="android:textColor">@android:color/darker_gray</item>
+    <style name="TagButtonStyle" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:textColor">@color/colorAccent</item>
         <item name="android:textSize">12sp</item>
+        <item name="strokeColor">@color/colorAccent</item>
     </style>
 
-    <style name="OriginalUrlStyleButton" parent="Widget.MaterialComponents.Button.TextButton">
-        <item name="android:textColor">#283593</item>
+    <style name="OriginalUrlStyleButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:textColor">@color/colorUrl</item>
         <item name="android:textSize">12sp</item>
+        <item name="rippleColor">@color/colorUrl</item>
+        <item name="strokeColor">@color/colorUrl</item>
     </style>
 
     <style name="SubscribeTagButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
-        <item name="android:strokeColor">@android:color/white</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
 </resources>
