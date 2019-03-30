@@ -15,35 +15,53 @@
     </fragment>
     <fragment android:id="@+id/newsListFragment" android:name="my.dzeko.footapp.view.fragment.NewsListFragment"
                android:label="@string/all_news" tools:layout="@layout/fragment_news_list">
-        <action android:id="@+id/action_newsListFragment_to_newsFragment" app:destination="@id/newsFragment"/>
+        <action android:id="@+id/action_newsListFragment_to_newsFragment" app:destination="@id/newsFragment"
+                app:enterAnim="@anim/nav_default_enter_anim" app:exitAnim="@anim/nav_default_exit_anim"
+                app:popEnterAnim="@anim/nav_default_pop_enter_anim" app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <action android:id="@+id/action_newsListFragment_to_userNewsListFragment"
-                app:destination="@id/userNewsListFragment" app:launchSingleTop="true" app:popUpToInclusive="false"/>
-        <action android:id="@+id/action_newsListFragment_to_searchTagFragment" app:destination="@id/searchTagFragment"/>
+                app:destination="@id/userNewsListFragment" app:launchSingleTop="true" app:popUpToInclusive="false"
+                app:enterAnim="@anim/nav_default_enter_anim" app:exitAnim="@anim/nav_default_exit_anim"
+                app:popEnterAnim="@anim/nav_default_pop_enter_anim" app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+        <action android:id="@+id/action_newsListFragment_to_searchTagFragment" app:destination="@id/searchTagFragment"
+                app:enterAnim="@anim/nav_default_enter_anim" app:exitAnim="@anim/nav_default_exit_anim"
+                app:popEnterAnim="@anim/nav_default_pop_enter_anim" app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
     </fragment>
     <fragment android:id="@+id/userNewsListFragment" android:name="my.dzeko.footapp.view.fragment.UserNewsFragment"
               android:label="@string/user_news" tools:layout="@layout/fragment_user_news">
-        <action android:id="@+id/action_userNewsListFragment_to_newsFragment" app:destination="@id/newsFragment"/>
+        <action android:id="@+id/action_userNewsListFragment_to_newsFragment" app:destination="@id/newsFragment"
+                app:enterAnim="@anim/nav_default_enter_anim" app:exitAnim="@anim/nav_default_exit_anim"
+                app:popEnterAnim="@anim/nav_default_pop_enter_anim" app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <action android:id="@+id/action_userNewsListFragment_to_searchTagFragment"
-                app:destination="@id/searchTagFragment"/>
+                app:destination="@id/searchTagFragment" app:enterAnim="@anim/nav_default_enter_anim"
+                app:exitAnim="@anim/nav_default_exit_anim" app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+                app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
     </fragment>
     <fragment android:id="@+id/newsFragment" android:name="my.dzeko.footapp.view.fragment.NewsFragment"
               android:label="@string/news" tools:layout="@layout/fragment_news">
         <argument android:name="newsId" app:argType="long" android:defaultValue="-1L"/>
         <action android:id="@+id/action_newsFragment_to_tagedNewsListFragment"
-                app:destination="@id/tagedNewsListFragment"/>
+                app:destination="@id/tagedNewsListFragment" app:enterAnim="@anim/nav_default_enter_anim"
+                app:exitAnim="@anim/nav_default_exit_anim" app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+                app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
     </fragment>
     <fragment android:id="@+id/tagedNewsListFragment"
               android:label="@string/taged_news_list" android:name="my.dzeko.footapp.view.fragment.TaggedNewsListFragment"
               tools:layout="@layout/fragment_taged_news_list">
         <argument android:name="tagId" app:argType="long"/>
-        <action android:id="@+id/action_tagedNewsListFragment_to_newsFragment" app:destination="@id/newsFragment"/>
+        <action android:id="@+id/action_tagedNewsListFragment_to_newsFragment" app:destination="@id/newsFragment"
+                app:enterAnim="@anim/nav_default_enter_anim" app:exitAnim="@anim/nav_default_exit_anim"
+                app:popEnterAnim="@anim/nav_default_pop_enter_anim" app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
     </fragment>
     <fragment android:id="@+id/searchTagFragment" android:label="@string/search_tag"
               android:name="my.dzeko.footapp.view.fragment.SearchTagFragment"
               tools:layout="@layout/fragment_search_tag">
         <action android:id="@+id/action_searchTagFragment_to_userNewsListFragment"
-                app:destination="@id/userNewsListFragment"/>
+                app:destination="@id/userNewsListFragment" app:enterAnim="@anim/nav_default_enter_anim"
+                app:exitAnim="@anim/nav_default_exit_anim" app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+                app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <action android:id="@+id/action_searchTagFragment_to_tagedNewsListFragment"
-                app:destination="@id/tagedNewsListFragment"/>
+                app:destination="@id/tagedNewsListFragment" app:enterAnim="@anim/nav_default_enter_anim"
+                app:exitAnim="@anim/nav_default_exit_anim" app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+                app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
     </fragment>
 </navigation>
