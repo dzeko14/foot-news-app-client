@@ -13,6 +13,7 @@ import com.google.android.flexbox.FlexboxLayout
 import my.dzeko.footapp.R
 import my.dzeko.footapp.extension.formattedTime
 import my.dzeko.footapp.model.entity.News
+import org.joda.time.DateTime
 import java.lang.Exception
 import java.util.*
 
@@ -81,7 +82,7 @@ class NewsAdapter (
 
         override fun update(news: News, position: Int) {
             titleTV.text = news.title
-            dateTV.text = Date(news.date).formattedTime(itemView.resources)
+            dateTV.text = DateTime(news.date).formattedTime(itemView.resources)
         }
     }
 

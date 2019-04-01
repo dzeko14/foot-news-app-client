@@ -2,38 +2,46 @@ package my.dzeko.footapp.extension
 
 import android.content.res.Resources
 import my.dzeko.footapp.R
-import java.text.SimpleDateFormat
-import java.util.*
+import org.joda.time.DateTime
+import org.joda.time.chrono.ISOChronology
+import org.joda.time.format.DateTimeFormatterBuilder
 
 private const val DAY_IN_MILLS = 86_400_000
 private const val HOUR_IN_MILLS = 3_600_000
+private const val MINUTE_IN_MILLS = 60_000
 
-fun Date.formattedTime(resource: Resources): String {
-    val diff = Date().time - this.time
-    val calendar = Calendar.getInstance()
-    val currentCalendar = Calendar.getInstance()
-    calendar.time = this
-    currentCalendar.time = Date()
-    val minutes = calendar.get(Calendar.MINUTE)
-    val hours = calendar.get(Calendar.HOUR_OF_DAY)
+fun DateTime.formattedTime(resource: Resources): String {
+    val currentTime = DateTime.now()
+    val diff = currentTime.millis - millis
+
     return when {
         diff <= HOUR_IN_MILLS -> {
-            val hDiff = currentCalendar.get(Calendar.MINUTE) - minutes
+            val hDiff = (diff / MINUTE_IN_MILLS).toInt()
             resource.getQuantityString(R.plurals.minutes,
                 hDiff,
                 hDiff)
         }
 
         diff <= DAY_IN_MILLS -> {
-            val mDiff = currentCalendar.get(Calendar.HOUR_OF_DAY) - hours
+            val mDiff = (diff / HOUR_IN_MILLS).toInt()
             resource.getQuantityString(R.plurals.hours,
                 mDiff,
                 mDiff)
         }
 
         else -> {
-            val formatter = SimpleDateFormat("dd-MM-YYYY HH:mm", Locale.getDefault())
-            return formatter.format(this)
+            val formatter = DateTimeFormatterBuilder()
+                .appendDayOfMonth(2)
+                .appendLiteral('-')
+                .appendMonthOfYear(2)
+                .appendLiteral('-')
+                .appendYear(4,4)
+                .appendLiteral(' ')
+                .appendHourOfDay(2)
+                .appendLiteral(':')
+                .appendMinuteOfDay(2)
+                .toFormatter()
+            return toString(formatter)
         }
     }
 
