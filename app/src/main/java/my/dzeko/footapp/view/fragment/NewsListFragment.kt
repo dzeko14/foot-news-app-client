@@ -26,9 +26,15 @@ class NewsListFragment : DaggerFragment(), NewsListView {
     private lateinit var mRecyclerView: RecyclerView
     private val mAdapter = NewsListAdapter(::onNewsItemClicked)
 
+    private lateinit var mEmptyView: View
+    private lateinit var mProgressBar: View
+
     private fun onNewsItemClicked(newsSummary: NewsSummary) {
         mPresenter.onNewsItemClicked(newsSummary)
     }
+
+    override val itemsCount: Int
+        get() = mAdapter.itemCount
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,12 +59,39 @@ class NewsListFragment : DaggerFragment(), NewsListView {
         }
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        mProgressBar = view.findViewById(R.id.progress_bar)
+        mEmptyView = view.findViewById(R.id.empty_view)
+    }
+
     override fun setNewsList(newsList: LiveData<PagedList<NewsSummary>>) {
-        newsList.observe(this, Observer { mAdapter.submitList(it) })
+        newsList.observe(this, Observer {
+            mAdapter.submitList(it)
+            it?.let { mPresenter.onNewsListSizeCheck() }
+
+        })
     }
 
     override fun navigateToNewsFragment(id: Long) {
         val action = NewsListFragmentDirections.actionNewsListFragmentToNewsFragment(id)
         NavHostFragment.findNavController(this).navigate(action)
+    }
+
+    override fun showEmptyScreen() {
+        mEmptyView.visibility = View.VISIBLE
+    }
+
+    override fun hideEmptyScreen() {
+        mEmptyView.visibility = View.GONE
+    }
+
+    override fun showLoading() {
+        mProgressBar.visibility = View.VISIBLE
+    }
+
+    override fun hideLoading() {
+        mProgressBar.visibility = View.GONE
     }
 }

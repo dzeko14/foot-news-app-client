@@ -10,6 +10,7 @@
     <string name="search_tag">Search tag</string>
     <string name="tag_query_hint">Enter the beginning of a tag name</string>
     <string name="tags">Tags</string>
+    <string name="no_list_elements">Nothing to show</string>
     <string-array name="tag_button_string">
         <item>Subscribe</item>
         <item>Unsubscribe</item>

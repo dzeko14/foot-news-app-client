@@ -28,9 +28,14 @@ class UserNewsFragment : DaggerFragment(), UserNewsView {
     private lateinit var mRecyclerView: RecyclerView
     private val mAdapter = NewsListAdapter(::onNewsItemClicked)
 
+    private lateinit var mEmptyView: View
+
     private fun onNewsItemClicked(newsSummary: NewsSummary) {
         mPresenter.onNewsItemClicked(newsSummary)
     }
+
+    override val itemsCount: Int
+        get() = mAdapter.itemCount
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +57,8 @@ class UserNewsFragment : DaggerFragment(), UserNewsView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        mEmptyView = view.findViewById(R.id.empty_view)
+
         mRecyclerView = view.findViewById(R.id.recycler_view)
         mRecyclerView.layoutManager = LinearLayoutManager(context)
         mRecyclerView.adapter = mAdapter
@@ -59,11 +66,22 @@ class UserNewsFragment : DaggerFragment(), UserNewsView {
     }
 
     override fun setNewsList(newsList: LiveData<PagedList<NewsSummary>>) {
-        newsList.observe(this, Observer { mAdapter.submitList(it) })
+        newsList.observe(this, Observer {
+            mAdapter.submitList(it)
+            it?.let { mPresenter.onNewsListSizeCheck() }
+        })
     }
 
     override fun navigateToNewsFragment(id: Long) {
         val action = UserNewsFragmentDirections.actionUserNewsListFragmentToNewsFragment(id)
         NavHostFragment.findNavController(this).navigate(action)
+    }
+
+    override fun showEmptyScreen() {
+        mEmptyView.visibility = View.VISIBLE
+    }
+
+    override fun hideEmptyScreen() {
+        mEmptyView.visibility = View.GONE
     }
 }

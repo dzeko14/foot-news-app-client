@@ -6,6 +6,7 @@ import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import kotlinx.coroutines.*
+import my.dzeko.footapp.manager.ConnectionManager
 import my.dzeko.footapp.model.entity.News
 import my.dzeko.footapp.model.entity.NewsSummary
 import my.dzeko.footapp.model.entity.NewsTag
@@ -21,7 +22,8 @@ import javax.inject.Singleton
 class NewsListInteractor @Inject constructor(
     private val mNewsRepo: NewsRepository,
     private val mTagsRepo: TagsRepository,
-    private val mNewsTagRepository: NewsTagRepository
+    private val mNewsTagRepository: NewsTagRepository,
+    private val mConnectionManager: ConnectionManager
 ) {
     private val mNewsListChangesListener = object : NewsListChangesListener(){
         private val ioScope = CoroutineScope(Dispatchers.IO)
@@ -76,6 +78,10 @@ class NewsListInteractor @Inject constructor(
 
     suspend fun updateTag(tag: Tag) {
         mTagsRepo.updateTag(tag)
+    }
+
+    fun getInternetConnectionStatus(): Boolean {
+        return mConnectionManager.isConnectedToInternet
     }
 
 
