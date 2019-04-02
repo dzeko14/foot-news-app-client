@@ -4,6 +4,7 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.Observer
 import android.arch.paging.PagedList
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -93,5 +94,13 @@ class NewsListFragment : DaggerFragment(), NewsListView {
 
     override fun hideLoading() {
         mProgressBar.visibility = View.GONE
+    }
+
+    override fun showItemsUpdated() {
+        Snackbar
+            .make(view!!, R.string.items_updated, Snackbar.LENGTH_LONG)
+            .setAction(R.string.go_to_it) {
+                mRecyclerView.smoothScrollToPosition(0)
+            }
     }
 }
