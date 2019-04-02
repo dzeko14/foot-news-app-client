@@ -10,7 +10,7 @@
     <string name="search_tag">Search tag</string>
     <string name="tag_query_hint">Enter the beginning of a tag name</string>
     <string name="tags">Tags</string>
-    <string name="no_list_elements">Nothing to show</string>
+    <string name="no_list_elements">Nothing for now!</string>
     <string-array name="tag_button_string">
         <item>Subscribe</item>
         <item>Unsubscribe</item>
@@ -19,6 +19,7 @@
     <plurals name="minutes">
         <item quantity="zero">just now</item>
         <item quantity="one">a minute ago</item>
+        <item quantity="two">%1$d minutes</item>
         <item quantity="few">%1$d minutes ago</item>
         <item quantity="many">%1$d minutes ago</item>
         <item quantity="other">%1$d minutes ago</item>
@@ -26,8 +27,12 @@
 
     <plurals name="hours">
         <item quantity="one">an hour ago</item>
+        <item quantity="two">%1$d hours</item>
         <item quantity="few">%1$d hours ago</item>
         <item quantity="many">%1$d hours ago</item>
         <item quantity="other">%1$d hours ago</item>
     </plurals>
+
+    <string name="items_updated">Updated items</string>
+    <string name="go_to_it">Go to it</string>
 </resources>

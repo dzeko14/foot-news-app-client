@@ -10,4 +10,5 @@ import my.dzeko.footapp.model.entity.NewsSummary
 interface NewsListView : IEmptiableScreen, ILoadableScreen, IListScreen {
     fun setNewsList(newsList: LiveData<PagedList<NewsSummary>>)
     fun navigateToNewsFragment(id: Long)
+    fun showItemsUpdated()
 }
