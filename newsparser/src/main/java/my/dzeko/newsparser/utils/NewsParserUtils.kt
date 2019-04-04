@@ -14,7 +14,7 @@ internal object NewsParserUtils {
 
     private val executor = Executors.newFixedThreadPool(4)
 
-    fun parseNews(doc :Document) :List<ParsedNews> {
+    fun parseNews(doc :Document, lastParsedNewsTime: DateTime) :List<ParsedNews> {
         val newsElements = doc.getElementsByClass("short-news")
         val newsBlocks = newsElements[0]
 
@@ -25,6 +25,14 @@ internal object NewsParserUtils {
         val callableList = mutableListOf<Callable<Unit>>()
         for(elem in newsBlocks.children().reversed()) {
             if (isTagWithAds(elem) || isTagWithBrake(elem) || isTagWithDate(elem)) continue
+
+            val time = elem.getElementsByClass("time").first().text()
+
+
+
+            if (DateAndTimeUtils
+                    .getDateWithTime(time, dateAndTime)
+                    .millis < lastParsedNewsTime.millis) continue
 
             callableList.add(
                     Callable<Unit> {

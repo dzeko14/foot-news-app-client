@@ -11,7 +11,7 @@ import java.util.*
 internal object DateAndTimeUtils {
 
     fun getDateFromString(dateStr :String) : DateTime {
-       // val dayAndMonth = dateStr.split(" ")
+        val dayAndMonth = dateStr.split(" ")
         val dateTime = DateTime.now(DateTimeZone.forID("Europe/Kiev"))
         return dateTime
 //                .withDayOfMonth(dayAndMonth[0].toInt())
@@ -43,7 +43,4 @@ internal object DateAndTimeUtils {
                 .withMinuteOfHour(hoursAndMinutes[1].toInt())
     }
 
-    fun convertLocalDateTimeToDate(localDateTime: LocalDateTime) :Date {
-       return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant())
-    }
 }
