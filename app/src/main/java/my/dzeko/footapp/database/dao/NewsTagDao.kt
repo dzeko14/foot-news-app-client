@@ -14,6 +14,6 @@ interface NewsTagDao {
     @Insert
     fun insert(ntList: List<NewsTag>)
 
-    @Query("Select T2.id, T2.name, T2.isSelected From NewsTag As T1 Inner Join Tag As T2 On T1.tagId=T2.id Where T1.newsId = :newsId")
+    @Query("Select T2.id, T2.name, T2.isSelected From NewsTag As T1 Inner Join ParsedTag As T2 On T1.tagId=T2.id Where T1.newsId = :newsId")
     fun getTagsByNewsId(newsId: Long): List<Tag>
 }

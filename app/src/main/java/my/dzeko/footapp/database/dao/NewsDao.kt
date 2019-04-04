@@ -19,18 +19,18 @@ interface NewsDao {
     @Delete
     fun delete(newsList: List<News>)
 
-    @Query("Select * From News Where id = :id")
+    @Query("Select * From ParsedNews Where id = :id")
     fun getById(id: Long): News
 
-    @Query("Select title, id, summary, date From News Order By date Desc")
+    @Query("Select title, id, summary, date From ParsedNews Order By date Desc")
     fun getAllNewsSummary(): DataSource.Factory<Int, NewsSummary>
 
-    @Query("Select date From News Order By date Desc Limit 1")
+    @Query("Select date From ParsedNews Order By date Desc Limit 1")
     fun getLatestNewsDate(): Long?
 
-    @Query("Select title, T1.id, summary, date From News As T1 Inner Join NewsTag as T2 On T1.id=T2.newsId Where T2.tagId=:tagId Order By date Desc")
+    @Query("Select title, T1.id, summary, date From ParsedNews As T1 Inner Join NewsTag as T2 On T1.id=T2.newsId Where T2.tagId=:tagId Order By date Desc")
     fun getNewsByTagId(tagId: Long): DataSource.Factory<Int, NewsSummary>
 
-    @Query("Select Distinct title, T1.id, summary, date From News As T1 Inner Join NewsTag as T2 On T1.id=T2.newsId Inner Join Tag As T3 On T3.id=T2.tagId Where T3.isSelected = 1 Order By date Desc ")
+    @Query("Select Distinct title, T1.id, summary, date From ParsedNews As T1 Inner Join NewsTag as T2 On T1.id=T2.newsId Inner Join ParsedTag As T3 On T3.id=T2.tagId Where T3.isSelected = 1 Order By date Desc ")
     fun getUserNews(): DataSource.Factory<Int, NewsSummary>
 }
