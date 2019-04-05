@@ -46,30 +46,6 @@ internal object NewsParserUtils {
             jobs.awaitAll()
             newsList
         }
-
-//        for(elem in newsBlocks.children().reversed()) {
-//            if (isTagWithAds(elem) || isTagWithBrake(elem) || isTagWithDate(elem)) continue
-//
-//            val time = elem.getElementsByClass("time")
-//                .first()
-//                .text()
-//
-//            if (DateAndTimeUtils
-//                    .getDateWithTime(time, dateAndTime)
-//                    .millis < lastParsedNewsTime.millis) continue
-//
-//            callableList.add(
-//                    Callable<Unit> {
-//                        val news = parseNewsContent(elem, dateAndTime)
-//                        news?.let {
-//                            newsList.add(news)
-//                        }
-//                    }
-//            )
-//
-//        }
-        //executor.invokeAll(callableList)
-
     }
 
     private fun isTagWithBrake(element: Element) :Boolean {

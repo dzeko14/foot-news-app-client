@@ -14,8 +14,8 @@ internal object DateAndTimeUtils {
         val dayAndMonth = dateStr.split(" ")
         val dateTime = DateTime.now(DateTimeZone.forID("Europe/Kiev"))
         return dateTime
-//                .withDayOfMonth(dayAndMonth[0].toInt())
-//                .withMonthOfYear(getMonthInt(dayAndMonth[1]))
+                .withDayOfMonth(dayAndMonth[0].toInt())
+                .withMonthOfYear(getMonthInt(dayAndMonth[1]))
     }
 
     private fun getMonthInt(s: String): Int {
