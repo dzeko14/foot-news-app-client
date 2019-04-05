@@ -41,6 +41,8 @@ internal object DateAndTimeUtils {
         return localDateTime
                 .withHourOfDay(hoursAndMinutes[0].toInt())
                 .withMinuteOfHour(hoursAndMinutes[1].toInt())
+            .withSecondOfMinute(0)
+            .withMillisOfSecond(0)
     }
 
 }

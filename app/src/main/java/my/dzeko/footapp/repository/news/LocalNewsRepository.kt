@@ -40,7 +40,7 @@ class LocalNewsRepository @Inject constructor(
     }
 
     fun getLastAddedNewsTime(): DateTime {
-        val mills = mNewsDao.getLatestNewsDate() ?: 0
+        val mills = (mNewsDao.getLatestNewsDate() ?: 0) + 1
         return DateTime(mills)
     }
 
