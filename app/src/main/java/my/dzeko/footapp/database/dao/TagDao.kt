@@ -10,7 +10,7 @@ interface TagDao {
     fun insert(tag: Tag)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(tagList: List<Tag>)
+    fun insert(tagList: List<Tag>): List<Long>
 
     @Delete
     fun delete(tag: Tag)

@@ -21,8 +21,7 @@ class UserNewsPresenter @Inject constructor(
         view?.navigateToNewsFragment(newsSummary.id)
     }
 
-    fun onNewsListSizeCheck() {
-        val size = view?.itemsCount ?: return
+    fun onNewsListSizeCheck(size: Int) {
         if (size == 0) view?.showEmptyScreen()
         else view?.hideEmptyScreen()
     }

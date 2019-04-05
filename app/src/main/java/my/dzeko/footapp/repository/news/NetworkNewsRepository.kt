@@ -1,23 +1,30 @@
 package my.dzeko.footapp.repository.news
 
-import com.google.firebase.database.ChildEventListener
-import com.google.firebase.database.FirebaseDatabase
+import androidx.work.*
+import my.dzeko.footapp.worker.ParsingNewsWorker
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@Singleton
-class NetworkNewsRepository @Inject constructor(
-     firebaseDatabase: FirebaseDatabase
-) {
-    private val firebaseDBReference = firebaseDatabase.reference.child("news")
-    private var isFirebaseDBInitialized = false
+private const val NEWS_PARSER_WORK = "news_parser_work"
 
-    fun addNewsListener(listener: ChildEventListener, date: Long) {
-        if (!isFirebaseDBInitialized) {
-            firebaseDBReference
-                .orderByChild("date")
-                .startAt(date.toDouble() + 1)
-                .addChildEventListener(listener)
-        }
+@Singleton
+class NetworkNewsRepository @Inject constructor() {
+    fun startNewsUpdate() {
+        val workManager = WorkManager.getInstance()
+
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .build()
+
+        val workRequest = PeriodicWorkRequestBuilder<ParsingNewsWorker>(
+            20,
+            TimeUnit.MINUTES
+        ).setConstraints(constraints)
+            .build()
+
+        workManager.enqueueUniquePeriodicWork(NEWS_PARSER_WORK,
+            ExistingPeriodicWorkPolicy.REPLACE,
+            workRequest)
     }
 }

@@ -13,7 +13,7 @@ import my.dzeko.footapp.model.entity.Tag
     ]
 )
 data class NewsTag(
-    @PrimaryKey(autoGenerate = true) val id: Long,
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
 
     @ForeignKey(
         entity = News::class,

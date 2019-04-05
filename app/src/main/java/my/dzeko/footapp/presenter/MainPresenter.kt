@@ -25,7 +25,7 @@ class MainPresenter @Inject constructor() : Presenter<MainView>() {
         when(destination.id) {
             R.id.splashScreenFragment -> view?.hideActionBar()
 
-           // R.id.tagedNewsListFragment -> view?.hideActionBar()
+            R.id.tagedNewsListFragment -> view?.hideActionBar()
 
             else -> view?.showActionBar()
         }

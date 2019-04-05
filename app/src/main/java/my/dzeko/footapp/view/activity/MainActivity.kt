@@ -1,7 +1,10 @@
 package my.dzeko.footapp.view.activity
 
 import android.os.Bundle
+import android.support.design.widget.AppBarLayout
 import android.support.design.widget.BottomNavigationView
+import android.support.design.widget.CoordinatorLayout
+import android.support.v4.view.ViewCompat
 import android.support.v7.widget.Toolbar
 import android.view.View
 import androidx.navigation.NavController
@@ -9,6 +12,8 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import dagger.android.support.DaggerAppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_taged_news_list.*
 import my.dzeko.footapp.R
 import my.dzeko.footapp.listener.BottomNavViewVisibilityListener
 import my.dzeko.footapp.listener.BottomNavigationViewItemsClickListener
@@ -23,6 +28,7 @@ class MainActivity : DaggerAppCompatActivity(), MainView {
     private lateinit var mBottomNavView: BottomNavigationView
     private lateinit var mNavController: NavController
     private lateinit var mToolbar: Toolbar
+    private lateinit var mAppBarLayout: AppBarLayout
 
     private val topLevelDestinationIdSet = setOf(
         R.id.newsListFragment,
@@ -35,6 +41,7 @@ class MainActivity : DaggerAppCompatActivity(), MainView {
         setContentView(R.layout.activity_main)
         mPresenter.subscribe(this)
 
+        mAppBarLayout = findViewById(R.id.app_bar_layout)
         mNavController = findNavController(R.id.main_container)
 
         //Set up action bar
@@ -49,8 +56,6 @@ class MainActivity : DaggerAppCompatActivity(), MainView {
             selectedItemId = BottomNavigationViewItemsClickListener.FIRST_MENU_ITEM_ID
             setOnNavigationItemSelectedListener(BottomNavigationViewItemsClickListener(mNavController))
         }
-
-  //      hideActionBar()
 
         mNavController.addOnDestinationChangedListener(mPresenter.backPressedDestinationChangedListener)
 
@@ -67,6 +72,8 @@ class MainActivity : DaggerAppCompatActivity(), MainView {
 
     override fun hideActionBar() {
         mToolbar.visibility = View.GONE
+        mAppBarLayout.setExpanded(true)
+
     }
 
     override fun onBackPressed() {

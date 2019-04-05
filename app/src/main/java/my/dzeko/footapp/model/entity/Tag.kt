@@ -1,14 +1,22 @@
 package my.dzeko.footapp.model.entity
 
 import android.arch.persistence.room.Entity
+import android.arch.persistence.room.Ignore
+import android.arch.persistence.room.Index
 import android.arch.persistence.room.PrimaryKey
+import my.dzeko.newsparser.entities.ParsedTag
 
-@Entity
+@Entity()
 data class Tag(
-        @PrimaryKey var id :Long = 0,
-        var name :String = "",
+        @PrimaryKey(autoGenerate = true) var id :Long = 0,
+        val name :String,
         var isSelected: Boolean = false
 ) {
+        @Ignore
+        constructor(parsedTag: ParsedTag): this(
+                name = parsedTag.name
+        )
+
         fun switchSelectedState(){
                 isSelected = !isSelected
         }

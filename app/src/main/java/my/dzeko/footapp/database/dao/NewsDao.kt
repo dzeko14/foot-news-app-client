@@ -4,14 +4,15 @@ import android.arch.paging.DataSource
 import android.arch.persistence.room.*
 import my.dzeko.footapp.model.entity.News
 import my.dzeko.footapp.model.entity.NewsSummary
+import org.joda.time.DateTime
 
 @Dao
 interface NewsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(news: News)
+    fun insert(news: News): Long
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(newsList: List<News>)
+    fun insert(newsList: List<News>): List<Long>
 
     @Delete
     fun delete(news: News)

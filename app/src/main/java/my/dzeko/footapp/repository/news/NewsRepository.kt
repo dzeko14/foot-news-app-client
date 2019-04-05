@@ -6,7 +6,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import my.dzeko.footapp.model.entity.News
 import my.dzeko.footapp.model.entity.NewsSummary
-import my.dzeko.footapp.model.interactor.NewsListInteractor
+import org.joda.time.DateTime
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -15,13 +15,15 @@ class NewsRepository @Inject constructor(
     private val mLocalRepo: LocalNewsRepository,
     private val mNetworkRepo: NetworkNewsRepository
 ) {
-    suspend fun getNews(newsListChangesListener: NewsListInteractor.NewsListChangesListener)
+    suspend fun getNews()
             : LiveData<PagedList<NewsSummary>> {
         return withContext(Dispatchers.IO) {
-            val lastAddNewsDate = mLocalRepo.getLastAddedNewsDate() ?: 0
-            mNetworkRepo.addNewsListener(newsListChangesListener, lastAddNewsDate)
              mLocalRepo.getNews()
         }
+    }
+
+    suspend fun startNewsUpdate() = withContext(Dispatchers.IO) {
+        mNetworkRepo.startNewsUpdate()
     }
 
     suspend fun getNewsById(id: Long): News {
@@ -30,8 +32,8 @@ class NewsRepository @Inject constructor(
         }
     }
 
-    fun save(news: News?) {
-        mLocalRepo.save(news)
+    fun save(news: News): News {
+        return mLocalRepo.save(news)
     }
 
     suspend fun getNewsByTagId(tagId: Long): LiveData<PagedList<NewsSummary>> {
@@ -46,5 +48,10 @@ class NewsRepository @Inject constructor(
         }
     }
 
+    suspend fun getLastAddedNewsTime(): DateTime {
+        return withContext(Dispatchers.IO) {
+            mLocalRepo.getLastAddedNewsTime()
+        }
+    }
 
 }
