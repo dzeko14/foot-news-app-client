@@ -34,9 +34,6 @@ class NewsListFragment : DaggerFragment(), NewsListView {
         mPresenter.onNewsItemClicked(newsSummary)
     }
 
-    override val itemsCount: Int
-        get() = mAdapter.itemCount
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mPresenter.subscribe(this)
@@ -70,7 +67,7 @@ class NewsListFragment : DaggerFragment(), NewsListView {
     override fun setNewsList(newsList: LiveData<PagedList<NewsSummary>>) {
         newsList.observe(this, Observer {
             mAdapter.submitList(it)
-            it?.let { mPresenter.onNewsListSizeCheck() }
+            it?.let { mPresenter.onNewsListSizeCheck(it.size) }
         })
     }
 
@@ -81,18 +78,22 @@ class NewsListFragment : DaggerFragment(), NewsListView {
 
     override fun showEmptyScreen() {
         mEmptyView.visibility = View.VISIBLE
+        mRecyclerView.visibility = View.INVISIBLE
     }
 
     override fun hideEmptyScreen() {
         mEmptyView.visibility = View.GONE
+        mRecyclerView.visibility = View.VISIBLE
     }
 
     override fun showLoading() {
         mProgressBar.visibility = View.VISIBLE
+        mRecyclerView.visibility = View.INVISIBLE
     }
 
     override fun hideLoading() {
         mProgressBar.visibility = View.GONE
+        mRecyclerView.visibility = View.VISIBLE
     }
 
     override fun showItemsUpdated() {
