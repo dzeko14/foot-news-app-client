@@ -71,7 +71,6 @@ class NewsListFragment : DaggerFragment(), NewsListView {
         newsList.observe(this, Observer {
             mAdapter.submitList(it)
             it?.let { mPresenter.onNewsListSizeCheck() }
-
         })
     }
 

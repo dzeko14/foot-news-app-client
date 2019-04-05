@@ -15,15 +15,9 @@ class NewsListPresenter @Inject constructor(
     fun requestNewsList() {
         uiScope.launch {
             mIsConnectedToNet  = interactor.getInternetConnectionStatus()
-            checkLoading()
             val newsList = interactor.getNewsList()
             view?.setNewsList(newsList)
         }
-    }
-
-    private fun checkLoading() {
-        val size = view?.itemsCount ?: return
-        if (mIsConnectedToNet && size == 0) view?.showLoading()
     }
 
     fun onNewsItemClicked(newsSummary: NewsSummary) {
@@ -32,9 +26,11 @@ class NewsListPresenter @Inject constructor(
 
     fun onNewsListSizeCheck() {
         val size = view?.itemsCount ?: return
-        if (size == 0 && !mIsConnectedToNet) {
-            view?.showEmptyScreen()
-            view?.hideLoading()
+        if (size == 0) {
+            if (!mIsConnectedToNet) {
+                view?.showEmptyScreen()
+                view?.hideLoading()
+            }
         }
         else {
             view?.hideEmptyScreen()

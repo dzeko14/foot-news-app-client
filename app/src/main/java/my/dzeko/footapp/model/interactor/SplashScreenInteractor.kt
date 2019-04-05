@@ -1,19 +1,17 @@
 package my.dzeko.footapp.model.interactor
 
 import kotlinx.coroutines.*
+import my.dzeko.footapp.repository.news.NewsRepository
 import javax.inject.Inject
 
 const val SPLASH_SCREEN_TIME = 1500L
 
-class SplashScreenInteractor @Inject constructor() {
-    private val splashScreenJob: Job = Job()
-    private val uiScope = CoroutineScope(Dispatchers.Main + splashScreenJob)
+class SplashScreenInteractor @Inject constructor(
+    private val mNewsRepository: NewsRepository
+) {
 
-    fun waitSomeTime(callback: () -> Unit) {
-        uiScope.launch {
-            delay(SPLASH_SCREEN_TIME)
-            callback()
-        }
+    suspend fun requestNewsUpdate() {
+        mNewsRepository.startNewsUpdate()
+        delay(SPLASH_SCREEN_TIME)
     }
-
 }

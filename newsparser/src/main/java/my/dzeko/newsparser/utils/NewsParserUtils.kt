@@ -1,5 +1,8 @@
 package my.dzeko.newsparser.utils
 
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
 import my.dzeko.newsparser.entities.ParsedNews
 import my.dzeko.newsparser.entities.ParsedTag
 import org.joda.time.DateTime
@@ -12,40 +15,61 @@ import java.util.concurrent.Executors
 
 internal object NewsParserUtils {
 
-    private val executor = Executors.newFixedThreadPool(4)
+    suspend fun parseNews(doc :Document, lastParsedNewsTime: DateTime): List<ParsedNews> {
+        return coroutineScope {
+            val newsElements = doc.getElementsByClass("short-news")
+            val newsBlocks = newsElements[0]
 
-    fun parseNews(doc :Document, lastParsedNewsTime: DateTime) :List<ParsedNews> {
-        val newsElements = doc.getElementsByClass("short-news")
-        val newsBlocks = newsElements[0]
+            val dateString: String = newsBlocks.child(0).text()
+            val dateAndTime = DateAndTimeUtils.getDateFromString(dateString)
 
-        val dateString: String = newsBlocks.child(0).text()
-        val dateAndTime = DateAndTimeUtils.getDateFromString(dateString)
+            val newsList = Collections.synchronizedList(mutableListOf<ParsedNews>())
 
-        val newsList = Collections.synchronizedList(mutableListOf<ParsedNews>())
-        val callableList = mutableListOf<Callable<Unit>>()
-        for(elem in newsBlocks.children().reversed()) {
-            if (isTagWithAds(elem) || isTagWithBrake(elem) || isTagWithDate(elem)) continue
+            val jobs = newsBlocks.children().map {elem ->
+                async {
+                    if (isTagWithAds(elem) || isTagWithBrake(elem) || isTagWithDate(elem)) return@async
 
-            val time = elem.getElementsByClass("time").first().text()
+                    val time = elem.getElementsByClass("time")
+                        .first()
+                        .text()
 
+                    if (DateAndTimeUtils
+                            .getDateWithTime(time, dateAndTime)
+                            .millis < lastParsedNewsTime.millis) return@async
 
-
-            if (DateAndTimeUtils
-                    .getDateWithTime(time, dateAndTime)
-                    .millis < lastParsedNewsTime.millis) continue
-
-            callableList.add(
-                    Callable<Unit> {
-                        val news = parseNewsContent(elem, dateAndTime)
-                        news?.let {
-                            newsList.add(news)
-                        }
+                    val news = parseNewsContent(elem, dateAndTime)
+                    news?.let {
+                        newsList.add(news)
                     }
-            )
-
+                }
+            }
+            jobs.awaitAll()
+            newsList
         }
-        executor.invokeAll(callableList)
-        return newsList
+
+//        for(elem in newsBlocks.children().reversed()) {
+//            if (isTagWithAds(elem) || isTagWithBrake(elem) || isTagWithDate(elem)) continue
+//
+//            val time = elem.getElementsByClass("time")
+//                .first()
+//                .text()
+//
+//            if (DateAndTimeUtils
+//                    .getDateWithTime(time, dateAndTime)
+//                    .millis < lastParsedNewsTime.millis) continue
+//
+//            callableList.add(
+//                    Callable<Unit> {
+//                        val news = parseNewsContent(elem, dateAndTime)
+//                        news?.let {
+//                            newsList.add(news)
+//                        }
+//                    }
+//            )
+//
+//        }
+        //executor.invokeAll(callableList)
+
     }
 
     private fun isTagWithBrake(element: Element) :Boolean {

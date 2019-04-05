@@ -7,6 +7,7 @@ import android.arch.paging.PagedList
 import my.dzeko.footapp.database.AppDatabase
 import my.dzeko.footapp.model.entity.News
 import my.dzeko.footapp.model.entity.NewsSummary
+import org.joda.time.DateTime
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -20,11 +21,12 @@ class LocalNewsRepository @Inject constructor(
        return LivePagedListBuilder(mNewsDao.getAllNewsSummary(), 20).build()
     }
 
-    fun save(news: News?) {
-        news?.let { mNewsDao.insert(news) }
+    fun save(news: News): News {
+        val id = mNewsDao.insert(news)
+        news.id = id
+        return news
     }
 
-    fun getLastAddedNewsDate(): Long? = mNewsDao.getLatestNewsDate()
     fun getNewsById(id: Long): News {
         return mNewsDao.getById(id)
     }
@@ -35,6 +37,11 @@ class LocalNewsRepository @Inject constructor(
 
     fun getUserNews(): LiveData<PagedList<NewsSummary>> {
         return LivePagedListBuilder(mNewsDao.getUserNews(), 20).build()
+    }
+
+    fun getLastAddedNewsTime(): DateTime {
+        val mills = mNewsDao.getLatestNewsDate() ?: 0
+        return DateTime(mills)
     }
 
 }

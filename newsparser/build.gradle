@@ -10,6 +10,10 @@ dependencies {
     implementation 'net.danlew:android.joda:2.10.1.2'
     implementation 'junit:junit:4.12'
 
+    //Kotlin Coroutines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.0.0'
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.0.0"
+
     testImplementation 'joda-time:joda-time:2.10.1'
 }
 

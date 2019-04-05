@@ -16,10 +16,13 @@ class TagsRepository @Inject constructor(
 ) {
     private val mTagDao = db.tagDao()
 
-    suspend fun saveTags(tags: List<Tag>?) {
-        withContext(Dispatchers.IO) {
-            tags?.let { mTagDao.insert(tags) }
-
+    suspend fun saveTags(tags: List<Tag>): List<Tag> {
+        return withContext(Dispatchers.IO) {
+            val tagsIds = mTagDao.insert(tags)
+            for (i in 0 until tags.size) {
+                tags[i].id = tagsIds[i]
+            }
+            tags
         }
     }
 
