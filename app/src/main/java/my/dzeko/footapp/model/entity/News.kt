@@ -27,4 +27,18 @@ data class News(
         originalUrl = parsedNews.originalUrl,
         summary = parsedNews.summary
     )
+
+    companion object {
+        fun createEmptyNews(): News {
+            return News(
+                0,
+                "empty",
+                "empty",
+                0,
+                emptyList<String>(),
+                emptyList<String>(),
+                ""
+            )
+        }
+    }
 }

@@ -5,6 +5,7 @@ import android.arch.lifecycle.Observer
 import android.arch.paging.PagedList
 import android.os.Bundle
 import android.support.design.widget.Snackbar
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -28,7 +29,7 @@ class NewsListFragment : DaggerFragment(), NewsListView {
     private val mAdapter = NewsListAdapter(::onNewsItemClicked)
 
     private lateinit var mEmptyView: View
-    private lateinit var mProgressBar: View
+    private lateinit var mSwipeRefreshLayout: SwipeRefreshLayout
 
     private fun onNewsItemClicked(newsSummary: NewsSummary) {
         mPresenter.onNewsItemClicked(newsSummary)
@@ -60,14 +61,19 @@ class NewsListFragment : DaggerFragment(), NewsListView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mProgressBar = view.findViewById(R.id.progress_bar)
+        mSwipeRefreshLayout = view.findViewById(R.id.swipe_refresh)
         mEmptyView = view.findViewById(R.id.empty_view)
+
+        //setup swipe refresh layout
+        mSwipeRefreshLayout.setOnRefreshListener { mPresenter.onNewsListUpdate() }
     }
 
     override fun setNewsList(newsList: LiveData<PagedList<NewsSummary>>) {
         newsList.observe(this, Observer {
             mAdapter.submitList(it)
-            it?.let { mPresenter.onNewsListSizeCheck(it.size) }
+            it?.let {
+                mPresenter.onNewsListSizeCheck(it.size)
+            }
         })
     }
 
@@ -87,12 +93,12 @@ class NewsListFragment : DaggerFragment(), NewsListView {
     }
 
     override fun showLoading() {
-        mProgressBar.visibility = View.VISIBLE
+        mSwipeRefreshLayout.isRefreshing = true
         mRecyclerView.visibility = View.INVISIBLE
     }
 
     override fun hideLoading() {
-        mProgressBar.visibility = View.GONE
+        mSwipeRefreshLayout.isRefreshing = false
         mRecyclerView.visibility = View.VISIBLE
     }
 
@@ -101,14 +107,6 @@ class NewsListFragment : DaggerFragment(), NewsListView {
             .make(view!!, R.string.items_updated, Snackbar.LENGTH_LONG)
             .setAction(R.string.go_to_it) {
                 mRecyclerView.smoothScrollToPosition(0)
-            }
-    }
-
-    override fun showItemsUpdated() {
-        Snackbar
-            .make(view!!, R.string.items_updated, Snackbar.LENGTH_LONG)
-            .setAction(R.string.go_to_it) {
-                mRecyclerView.smoothScrollToPosition(0)
-            }
+            }.show()
     }
 }

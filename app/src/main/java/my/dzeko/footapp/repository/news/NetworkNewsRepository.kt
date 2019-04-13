@@ -17,14 +17,12 @@ class NetworkNewsRepository @Inject constructor() {
             .setRequiredNetworkType(NetworkType.CONNECTED)
             .build()
 
-        val workRequest = PeriodicWorkRequestBuilder<ParsingNewsWorker>(
-            20,
-            TimeUnit.MINUTES
-        ).setConstraints(constraints)
+        val workRequest = OneTimeWorkRequestBuilder<ParsingNewsWorker>()
+            .setConstraints(constraints)
             .build()
 
-        workManager.enqueueUniquePeriodicWork(NEWS_PARSER_WORK,
-            ExistingPeriodicWorkPolicy.REPLACE,
+        workManager.enqueueUniqueWork(NEWS_PARSER_WORK,
+            ExistingWorkPolicy.KEEP,
             workRequest)
     }
 }

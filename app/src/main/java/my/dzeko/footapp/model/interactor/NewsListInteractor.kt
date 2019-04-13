@@ -3,6 +3,7 @@ package my.dzeko.footapp.model.interactor
 import android.arch.lifecycle.LiveData
 import android.arch.paging.PagedList
 import kotlinx.coroutines.*
+import my.dzeko.footapp.command.ParseNewsCommand
 import my.dzeko.footapp.manager.ConnectionManager
 import my.dzeko.footapp.model.entity.News
 import my.dzeko.footapp.model.entity.NewsSummary
@@ -11,6 +12,7 @@ import my.dzeko.footapp.model.entity.Tag
 import my.dzeko.footapp.repository.news.NewsRepository
 import my.dzeko.footapp.repository.newstag.NewsTagRepository
 import my.dzeko.footapp.repository.tag.TagsRepository
+import my.dzeko.newsparser.NewsParser
 import java.lang.Exception
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -20,7 +22,8 @@ class NewsListInteractor @Inject constructor(
     private val mNewsRepo: NewsRepository,
     private val mTagsRepo: TagsRepository,
     private val mNewsTagRepository: NewsTagRepository,
-    private val mConnectionManager: ConnectionManager
+    private val mConnectionManager: ConnectionManager,
+    private val mNewsParser: NewsParser
 ) {
     suspend fun getNewsList(): LiveData<PagedList<NewsSummary>> {
         return mNewsRepo.getNews()
@@ -32,6 +35,10 @@ class NewsListInteractor @Inject constructor(
         }
 
         throw Exception("tagId is null!")
+    }
+
+    suspend fun updateNewsList() = withContext(Dispatchers.IO) {
+        ParseNewsCommand(mNewsRepo, mTagsRepo, mNewsParser, mNewsTagRepository).execute()
     }
 
     suspend fun getTag(tagId: Long?): Tag {

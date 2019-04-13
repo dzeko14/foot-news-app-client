@@ -39,7 +39,7 @@ fun DateTime.formattedTime(resource: Resources): String {
                 .appendLiteral(' ')
                 .appendHourOfDay(2)
                 .appendLiteral(':')
-                .appendMinuteOfDay(2)
+                .appendMinuteOfHour(2)
                 .toFormatter()
             return toString(formatter)
         }

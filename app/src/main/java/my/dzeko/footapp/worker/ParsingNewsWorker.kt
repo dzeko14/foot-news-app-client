@@ -9,6 +9,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import my.dzeko.footapp.application.FootApplication
+import my.dzeko.footapp.command.ParseNewsCommand
 import my.dzeko.footapp.database.AppDatabase
 import my.dzeko.footapp.model.entity.News
 import my.dzeko.footapp.model.entity.NewsTag
@@ -37,30 +38,9 @@ class ParsingNewsWorker(
     }
 
     override suspend fun doWork(): Result = coroutineScope {
-        val lastParsedNewsTime = mNewsRepo.getLastAddedNewsTime()
 
-        val parsedNews = mNewsParser.parseNews(lastParsedNewsTime)
+        ParseNewsCommand(mNewsRepo, mTagRepo, mNewsParser, mTagNewsRepo).execute()
 
-        val newsListJob = parsedNews.map { pNews ->
-            async {
-                var news = News(pNews)
-                var tags = pNews.parsedTags.map { t -> Tag(t.name.hashCode().toLong(), t.name) }
-
-                news = mNewsRepo.save(news)
-                tags = mTagRepo.saveTags(tags)
-
-                val tagNewsSaveJob = tags.map { t ->
-                    async {
-                        mTagNewsRepo.saveNewsTag(NewsTag(newsId = news.id, tagId = t.id))
-                    }
-                }
-
-                tagNewsSaveJob.awaitAll()
-            }
-        }
-
-        newsListJob.awaitAll()
-
-         Result.success()
+        Result.success()
     }
 }

@@ -11,9 +11,11 @@ class NewsListPresenter @Inject constructor(
     private val interactor: NewsListInteractor
 ) : Presenter<NewsListView>() {
     private var mIsConnectedToNet = false
+    private var mPreviousNewsListSize: Int? = null
 
     fun requestNewsList() {
         uiScope.launch {
+            view?.showLoading()
             mIsConnectedToNet  = interactor.getInternetConnectionStatus()
             val newsList = interactor.getNewsList()
             view?.setNewsList(newsList)
@@ -22,6 +24,16 @@ class NewsListPresenter @Inject constructor(
 
     fun onNewsItemClicked(newsSummary: NewsSummary) {
         view?.navigateToNewsFragment(newsSummary.id)
+    }
+
+    fun onNewsListUpdate() {
+        uiScope.launch {
+            val internetAvailable = interactor.getInternetConnectionStatus()
+            if (internetAvailable) {
+                interactor.updateNewsList()
+            }
+            view?.hideLoading()
+        }
     }
 
     fun onNewsListSizeCheck(size: Int) {
@@ -34,6 +46,14 @@ class NewsListPresenter @Inject constructor(
         else {
             view?.hideEmptyScreen()
             view?.hideLoading()
+            if (mPreviousNewsListSize == null) {
+                mPreviousNewsListSize = size
+            } else {
+                if (mPreviousNewsListSize != size) {
+                    view?.showItemsUpdated()
+                    mPreviousNewsListSize = size
+                }
+            }
         }
     }
 }

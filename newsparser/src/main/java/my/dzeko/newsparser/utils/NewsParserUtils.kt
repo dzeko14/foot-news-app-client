@@ -10,8 +10,6 @@ import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 import java.lang.StringBuilder
 import java.util.*
-import java.util.concurrent.Callable
-import java.util.concurrent.Executors
 
 internal object NewsParserUtils {
 

@@ -54,4 +54,8 @@ class NewsRepository @Inject constructor(
         }
     }
 
+    suspend fun removeNews(news: News) = withContext(Dispatchers.IO) {
+        mLocalRepo.remove(news)
+    }
+
 }

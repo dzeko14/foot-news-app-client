@@ -44,4 +44,8 @@ class LocalNewsRepository @Inject constructor(
         return DateTime(mills)
     }
 
+    fun remove(news: News) {
+        mNewsDao.delete(news)
+    }
+
 }
