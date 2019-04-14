@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Ball News</string>
+    <string name="original_source_text">Оригінал статті можна подивитися тут</string>
+    <string name="all_news">Всі новини</string>
+    <string name="user_news">Вибрані новини</string>
+    <string name="search">Пошук</string>
+    <string name="news">Новини</string>
+    <string name="taged_news_list">Список новин</string>
+    <string name="search_tag">Пошук тегів</string>
+    <string name="tag_query_hint">Почніть вводити назву тега</string>
+    <string name="tags">Теги</string>
+    <string name="no_list_elements">Зараз немає новин для вас!</string>
+    <string name="go_to_it">Перейти</string>
+    <string name="items_updated">Список новин оновлено!</string>
+
+    <string-array name="tag_button_string">
+        <item>Підписатися</item>
+        <item>Відписатися</item>
+    </string-array>
+
+    <plurals name="minutes">
+        <item quantity="one">%1$d хвилину тому</item>
+        <item quantity="few">%1$d хвилини тому</item>
+        <item quantity="many">%1$d хвилин тому</item>
+        <item quantity="other">%1$d хвилин тому</item>
+    </plurals>
+
+    <plurals name="hours">
+        <item quantity="one">%1$d годину тому</item>
+        <item quantity="few">%1$d години тому</item>
+        <item quantity="many">%1$d годин тому</item>
+        <item quantity="other">%1$d годин тому</item>
+    </plurals>
+</resources>

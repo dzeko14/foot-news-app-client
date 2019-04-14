@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">Ball News</string>
+
+    <string name="original_source_text">Оригинал статьи можно посиотреть здесь</string>
+    <string name="all_news">Все новости</string>
+    <string name="user_news">Избранные новости</string>
+    <string name="search">Поиск</string>
+    <string name="news">Новости</string>
+    <string name="taged_news_list">Список новостей</string>
+    <string name="search_tag">Поиск тегов</string>
+    <string name="tag_query_hint">Начните вводить название тега</string>
+    <string name="tags">Теги</string>
+    <string name="no_list_elements">Сейчас нету новостей для вас!</string>
+    <string-array name="tag_button_string">
+        <item>Подписаться</item>
+        <item>Отписаться</item>
+    </string-array>
+
+    <plurals name="minutes">
+        <item quantity="one">%1$d минуту назад</item>
+        <item quantity="few">%1$d минуты назад</item>
+        <item quantity="many">%1$d минут назад</item>
+        <item quantity="other">%1$d минут назад</item>
+    </plurals>
+
+    <plurals name="hours">
+        <item quantity="one">%1$d час назад</item>
+        <item quantity="few">%1$d часа назад</item>
+        <item quantity="many">%1$d часов назад</item>
+        <item quantity="other">%1$d часов назад</item>
+    </plurals>
+
+    <string name="items_updated">Список новостей обновлен!</string>
+    <string name="go_to_it">Перейти</string>
+</resources>

@@ -1,14 +1,14 @@
 <resources>
-    <string name="app_name">Foot App</string>
+    <string name="app_name" translatable="false">Ball News</string>
 
     <string name="original_source_text">The original you may read here</string>
     <string name="all_news">All news</string>
-    <string name="user_news">User news</string>
+    <string name="user_news">Your news</string>
     <string name="search">Search</string>
     <string name="news">News</string>
     <string name="taged_news_list">News List</string>
     <string name="search_tag">Search tag</string>
-    <string name="tag_query_hint">Enter the beginning of a tag name</string>
+    <string name="tag_query_hint">Start input a tag name</string>
     <string name="tags">Tags</string>
     <string name="no_list_elements">Nothing for now!</string>
     <string-array name="tag_button_string">
@@ -33,6 +33,6 @@
         <item quantity="other">%1$d hours ago</item>
     </plurals>
 
-    <string name="items_updated">Updated items</string>
+    <string name="items_updated">News updated!</string>
     <string name="go_to_it">Go to it</string>
 </resources>

@@ -6,5 +6,6 @@
     <ImageView android:layout_width="300dp" android:layout_height="wrap_content"
                app:srcCompat="@drawable/empty_list_image"/>
     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:text="@string/no_list_elements" android:textSize="36sp" android:fontFamily="sans-serif-medium"/>
+        android:text="@string/no_list_elements" android:textSize="36sp" android:textAlignment="center"
+              android:fontFamily="sans-serif-medium"/>
 </LinearLayout>

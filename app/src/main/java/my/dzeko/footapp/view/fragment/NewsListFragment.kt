@@ -3,8 +3,11 @@ package my.dzeko.footapp.view.fragment
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.Observer
 import android.arch.paging.PagedList
+import android.content.res.Resources
+import android.graphics.Color
 import android.os.Bundle
 import android.support.design.widget.Snackbar
+import android.support.v4.content.res.ResourcesCompat
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -66,6 +69,8 @@ class NewsListFragment : DaggerFragment(), NewsListView {
 
         //setup swipe refresh layout
         mSwipeRefreshLayout.setOnRefreshListener { mPresenter.onNewsListUpdate() }
+        val swipeRefreshColor = ResourcesCompat.getColor(resources, R.color.colorAccent, null)
+        mSwipeRefreshLayout.setColorSchemeColors(swipeRefreshColor)
     }
 
     override fun setNewsList(newsList: LiveData<PagedList<NewsSummary>>) {
