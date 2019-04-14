@@ -141,6 +141,10 @@ internal object NewsParserUtils {
                     continue@loop
                 }
 
+//                body.children().last() == p && p.child(0).tag().name == "strong"
+//                        && p.child(0).children().size > 0
+//                        && p.child(0).child(0).tagName() == "a" -> continue@loop
+
                 p.children().size > 0
                     -> readChildElementAndConvertToString(p) ?: continue@loop
 
@@ -163,7 +167,7 @@ internal object NewsParserUtils {
 
     private fun readChildElementAndConvertToString(p: Element): String? {
         val isTagOnlyChild = p.children().size == 1
-                && p.ownText().isEmpty()
+               // && p.ownText().isEmpty()
 
         return when {
             (isTagOnlyChild
