@@ -1,5 +1,6 @@
 package my.dzeko.footapp.view.fragment
 
+import android.app.Activity
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.Observer
 import android.arch.paging.PagedList
@@ -10,6 +11,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.SearchView
 import androidx.navigation.fragment.NavHostFragment
 import dagger.android.support.DaggerFragment
@@ -29,7 +31,7 @@ class SearchTagFragment : DaggerFragment(), SearchTagView {
     private lateinit var mSearchView: SearchView
     private lateinit var mRecyclerView: RecyclerView
     private val mAdapter = TagListAdapter(::onTagSelected, ::onTagClicked)
-
+    private lateinit var mInputMethodManager: InputMethodManager
 
     private fun onTagSelected(tag: Tag) {
         mPresenter.onTagSelectedClick(tag)
@@ -65,7 +67,14 @@ class SearchTagFragment : DaggerFragment(), SearchTagView {
         mRecyclerView = view.recycler_view
         setupRecyclerView()
 
+        mInputMethodManager = activity?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+
         mPresenter.onEmptyQuery()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        hideKeyBoard()
     }
 
     private fun setupRecyclerView() {
@@ -77,7 +86,7 @@ class SearchTagFragment : DaggerFragment(), SearchTagView {
         mSearchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 query?.let {
-                    mPresenter.onQueryTextSubmit("$query%")
+                    mPresenter.onQueryTextSubmit(query)
                 }
                 return true
             }
@@ -103,8 +112,9 @@ class SearchTagFragment : DaggerFragment(), SearchTagView {
         mOldTagsLiveData = tags
     }
 
-
-    override fun setSearchSugestions(cursor: Cursor) {
-        TODO("not implemented")
+    override fun hideKeyBoard() {
+        view?.let {
+            mInputMethodManager.hideSoftInputFromWindow(it.windowToken, 0)
+        }
     }
 }

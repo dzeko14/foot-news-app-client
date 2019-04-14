@@ -7,5 +7,5 @@ import my.dzeko.footapp.model.entity.Tag
 
 interface SearchTagView {
     fun setTagsList(tags: LiveData<PagedList<Tag>>)
-    fun setSearchSugestions(cursor: Cursor)
+    fun hideKeyBoard()
 }

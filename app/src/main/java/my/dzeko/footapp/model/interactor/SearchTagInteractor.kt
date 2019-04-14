@@ -12,7 +12,7 @@ class SearchTagInteractor @Inject constructor(
     private val tagRepo: TagsRepository
 ) {
     suspend fun getTagsByName(name: String): LiveData<PagedList<Tag>> {
-        return tagRepo.getTagByNamePart(name)
+        return tagRepo.getTagByNamePart("%$name%")
     }
 
     suspend fun getSelectedTags(): LiveData<PagedList<Tag>> {

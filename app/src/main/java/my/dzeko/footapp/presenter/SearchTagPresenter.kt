@@ -12,11 +12,11 @@ class SearchTagPresenter @Inject constructor(
     private val interactor: SearchTagInteractor
 ) : Presenter<SearchTagView>() {
     private var submitQuerySearchJob: Job? = null
-    private var changedTextQuerySearchJob: Job? = null
 
     fun onQueryTextSubmit(name: String) {
         submitQuerySearchJob?.cancel()
         submitQuerySearchJob = uiScope.launch {
+            view?.hideKeyBoard()
             val tags = interactor.getTagsByName(name)
             view?.setTagsList(tags)
             submitQuerySearchJob = null
@@ -27,7 +27,11 @@ class SearchTagPresenter @Inject constructor(
         if (newText.isEmpty()) {
             onEmptyQuery()
         } else {
-
+            submitQuerySearchJob = uiScope.launch {
+                val tags = interactor.getTagsByName(newText)
+                view?.setTagsList(tags)
+                submitQuerySearchJob = null
+            }
         }
     }
 
